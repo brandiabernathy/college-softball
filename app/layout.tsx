@@ -1,7 +1,19 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
+import './globals.css';
+import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] })
+import { Bebas_Neue } from 'next/font/google';
+import { Anton } from 'next/font/google';
+
+import { Barlow_Condensed } from 'next/font/google';
+
+
+const inter = Inter({ subsets: ['latin'] });
+
+const bebas_neue = Bebas_Neue({ subsets: ['latin'], weight: '400' });
+
+const anton = Anton({ subsets: ['latin'], weight: '400' });
+
+const barlow_condensed = Barlow_Condensed({ subsets: ['latin'], weight: ['400', '600'] });
 
 export const metadata = {
   title: 'Create Next App',
@@ -15,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={barlow_condensed.className}>{children}</body>
     </html>
   )
 }
