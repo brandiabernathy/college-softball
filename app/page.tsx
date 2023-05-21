@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
-import Header from './components/Header';
-import Day from './components/Day';
+import Header from '../components/Header';
+import Day from '../components/Day';
 
 export default function Home() {
 
