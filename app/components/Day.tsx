@@ -1,12 +1,11 @@
 import React from 'react';
-import Image from 'next/image';
 import axios from 'axios';
 import Game from './Game';
 import { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
 
 export default function Day(props) {
-    const [games, setGames] = React.useState([]);
+    const [games, setGames] = useState([]);
 
     useEffect(() => {
 		axios

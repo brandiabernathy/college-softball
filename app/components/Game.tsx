@@ -1,8 +1,10 @@
 import Image from 'next/image';
 
 export default function Game(props) {
+
+    console.log('props', props);
 	return (
-		<div className="bg-white p-4 rounded text-base">
+		<div className="w-full bg-white p-4 rounded text-base">
             <span className="font-semibold">{props.game.status.type.shortDetail}</span> {!props.game.status.type.completed && <span> - {props.game.broadcast}</span>}
             <div className="flex items-center justify-between my-1 relative">
                 <div className="flex">

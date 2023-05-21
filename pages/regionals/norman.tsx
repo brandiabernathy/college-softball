@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../../app/components/Header';
 import Bracket from '../../app/components/Bracket';
 
-export default function RegionalBracket() {
+export default function NormanRegional() {
 
   return (
     <>
