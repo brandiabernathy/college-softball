@@ -1,5 +1,5 @@
 import Header from '../../../components/Header';
-import Bracket from '../../../components/RegionalBracket';
+import Bracket from '../../../components/RegionalsBracket';
 
 export default function EvanstonRegional() {
 
