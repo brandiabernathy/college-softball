@@ -2,9 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import Game from './Game';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function Day(props) {
 	const [games, setGames] = useState([]);
+
+	const pathname = usePathname();
 
 	function getGames() {
 		axios
@@ -36,11 +39,11 @@ export default function Day(props) {
 	}, [props.date]);
 
 	let events = games.map(item => {
-		return <Game key={item.id} game={item} description={item.description}/>
+		return <Game key={item.id} game={item} description={item.description} pathname={pathname}/>
 	});
 
 	return (
-		<section className="grid grid-cols-4 gap-3 container mx-auto">
+		<section className="grid grid-cols-1 min-[600px]:grid-cols-2 min-[1000px]:grid-cols-3 lg:grid-cols-4 gap-3 px-4 max-w-8xl mx-auto">
 			{events && events}
 		</section>
 	)

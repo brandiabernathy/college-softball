@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import axios from 'axios';
-import Game from './GameLine';
+import Game from './Game';
 import { useState, useEffect } from 'react';
 
 export default function Day(props) {

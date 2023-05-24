@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
 interface GameProps {
 	id: number,
 	home: {
@@ -24,7 +23,6 @@ interface GameProps {
 
 export default function Game(props) {
 
-    console.log('props', props);
 	return (
 		<div className="h-fit w-full bg-white p-4 rounded text-base">
             <span className="font-semibold">{props.game.status.type.shortDetail}</span> {!props.game.status.type.completed && <span> - {props.game.broadcast}</span>}
@@ -58,7 +56,7 @@ export default function Game(props) {
                 {props.game.status.type.description != 'Scheduled' && <span className={"text-xl " + (props.game.status.type.completed && !props.game.home.winner ? 'text-slate-400' : '')}>{props.game.home.score}</span>}
                 {props.game.home.winner && <div className="border-solid border-r-black border-r-8 border-y-transparent border-y-8 border-l-0 absolute -right-4"></div>}
             </div>
-            <div className="text-slate-400"><Link href={"/regionals/" + props.game.location}>{props.description}</Link></div>
+            <div className="text-slate-400"><Link href={props.pathname + "/" + props.game.location}>{props.description}</Link></div>
 		</div>
 	)
 }

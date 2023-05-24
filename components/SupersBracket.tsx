@@ -9,7 +9,7 @@ export default function Day(props) {
 
 	function getGames() {
 		axios
-		.get('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230519-20230522')
+		.get('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230525-20230528')
 		.then(response => {
 			setGames(response.data.events
 				.filter(game => game.competitions[0].venue.id == props.venue)
@@ -44,7 +44,7 @@ export default function Day(props) {
 					<Game key="1" game={games[1]} description="Game 2"/>
 				</div>
 				<div className="grid gap-3">
-					{games[2] && <div className="w-full"> <Game key="2" game={games[2]} description="Game 3"/></div>}
+					{games[2] && <div className="w-full"> <Game key="2" game={games[2]} description="Game 3 - If Necessary"/></div>}
 				</div>
 			</div>}
 		</section>

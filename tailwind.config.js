@@ -6,7 +6,16 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+    },
     extend: {
+      gridTemplateColumns: {
+        'game': '1fr 20px 48px 20px 1fr',
+      },
+      maxWidth: {
+        '8xl': '90rem',
+      }
     },
   },
   plugins: [],
