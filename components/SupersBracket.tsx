@@ -36,16 +36,10 @@ export default function Day(props) {
 
 	return (
 		<section>
-			{games.length && <div className="grid grid-cols-4 gap-3">
-				<div className="grid gap-3">
-					<Game key="0" game={games[0]} description="Game 1"/>
-				</div>
-				<div className="grid gap-3">
-					<Game key="1" game={games[1]} description="Game 2"/>
-				</div>
-				<div className="grid gap-3">
-					{games[2] && <div className="w-full"> <Game key="2" game={games[2]} description="Game 3 - If Necessary"/></div>}
-				</div>
+			{games.length && <div className="grid grid-cols-4 gap-8">
+				<Game key="0" game={games[0]} description="Game 1"/>
+				<Game key="1" game={games[1]} description="Game 2"/>
+				{games[2] && <div className="w-full"> <Game key="2" game={games[2]} description="Game 3 - If Necessary"/></div>}
 			</div>}
 		</section>
 	)

@@ -40,7 +40,7 @@ export default function Game(props: Game) {
             <div className="text-slate-400">
                 {props.pathname && <Link href={props.pathname + "/" + props.game.location}>{props.description}</Link>}
                 {!props.pathname && props.description}
-                </div>
+            </div>
 		</div>
 	)
 }

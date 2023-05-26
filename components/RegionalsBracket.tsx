@@ -40,13 +40,13 @@ export default function Day(props) {
 
 	return (
 		<section>
-			{games.length && <div className="flex gap-3 items-center">
-				<div className="flex flex-wrap gap-3 w-1/4">
+			{games.length && <div className="flex gap-8 items-center">
+				<div className="flex flex-wrap gap-8 w-1/4">
 					<Game key="0" game={games[0]} description="Opening Round"/>
 					<Game key="1" game={games[1]} description="Opening Round"/>
 					<Game key="3" game={games[3]} description="Elimination Game"/>
 				</div>
-				<div className="flex flex-wrap gap-3 w-1/4 h-fit">
+				<div className="flex flex-wrap gap-8 w-1/4 h-fit">
 					<Game key="2" game={games[2]} description="Winner's Bracket"/>
 					<Game key="4" game={games[4]} description="Elimination Game"/>
 				</div>

@@ -52,6 +52,7 @@ export default function Regionals() {
 			<main className="bg-slate-100 py-5">
 				<div className="container max-w-8xl">
 					<div className="mb-5 text-xl">
+						{/* <span onClick={() => filterGames('20230519')} className={"cursor-pointer " + (selectedDate == '20230519' ? 'underline text-blue-900' : '')}>All</span> |&nbsp; */}
 						<span onClick={() => filterGames('20230519')} className={"cursor-pointer " + (selectedDate == '20230519' ? 'underline text-blue-900' : '')}>Friday</span> |&nbsp;
 						<span onClick={() => filterGames('20230520')} className={"cursor-pointer " + (selectedDate == '20230520' ? 'underline text-blue-900' : '')}>Saturday</span> |&nbsp;
 						<span onClick={() => filterGames('20230521')} className={"cursor-pointer " + (selectedDate == '20230521' ? 'underline text-blue-900' : '')}>Sunday</span>
