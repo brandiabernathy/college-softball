@@ -1,27 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-interface GameProps {
-	id: number,
-	home: {
-		winner: boolean,
-		team: {
-			location: string,
-			logo: string,
-		}
-	},
-	away: {
-		winner: boolean,
-		team: {
-			location: string,
-			logo: string,
-		}
-	}
-	broadcast: string,
-	venue: number,
-	location: string,
-}
+import { Game } from '../types';
 
-export default function Game(props) {
+export default function Game(props: Game) {
 
 	return (
 		<div className="h-fit w-full bg-white p-4 rounded text-base">
@@ -56,7 +37,10 @@ export default function Game(props) {
                 {props.game.status.type.description != 'Scheduled' && <span className={"text-xl " + (props.game.status.type.completed && !props.game.home.winner ? 'text-slate-400' : '')}>{props.game.home.score}</span>}
                 {props.game.home.winner && <div className="border-solid border-r-black border-r-8 border-y-transparent border-y-8 border-l-0 absolute -right-4"></div>}
             </div>
-            <div className="text-slate-400"><Link href={props.pathname + "/" + props.game.location}>{props.description}</Link></div>
+            <div className="text-slate-400">
+                {props.pathname && <Link href={props.pathname + "/" + props.game.location}>{props.description}</Link>}
+                {!props.pathname && props.description}
+                </div>
 		</div>
 	)
 }

@@ -41,9 +41,9 @@ export default function Regionals() {
 		getGames();
 	}, []);
 
-	function filterGames(date) {
+	function filterGames(date: string) {
 		setSelectedDate (date);
-		setDayGames(games.filter(game => game.date == date));
+		setDayGames(games.filter(game => game['date'] == date));
 	}
 
 	return (

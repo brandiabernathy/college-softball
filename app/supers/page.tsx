@@ -7,6 +7,9 @@ import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import Box from '../../components/VenueBox';
 
+var utc = require('dayjs/plugin/utc')
+dayjs.extend(utc)
+
 export default function Supers() {
 	const [games, setGames] = useState([]);
 	const [dayGames, setDayGames] = useState([]);
@@ -20,6 +23,7 @@ export default function Supers() {
 				setGames(response.data.events.map(game => ({
 					id: game.id,
 					date: dayjs(game.date).format('YYYYMMDD'),
+					time: dayjs(game.date).format('ha dd'),
 					status: game.status,
 					home: game.competitions[0].competitors[0],
 					away: game.competitions[0].competitors[1],
@@ -41,15 +45,15 @@ export default function Supers() {
 		getGames();
 	}, []);
 
-	function filterGames(date) {
+	function filterGames(date: string) {
 		setSelectedDate (date);
-		setDayGames(games.filter(game => game.date == date));
+		setDayGames(games.filter(game => game['date'] == date));
 	}
 
 	return (
 		<>
 			<Header />
-			<main className="bg-slate-100 py-5">
+			<main className="bg-slate-100 py-5 min-h-screen">
 				<section className="container max-w-8xl">
 					<div className="mb-5 text-xl">
 						<span onClick={() => filterGames('20230525')} className={"cursor-pointer " + (selectedDate == '20230525' ? 'underline text-blue-900' : '')}>Thursday</span> |&nbsp;
