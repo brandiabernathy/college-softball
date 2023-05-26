@@ -35,8 +35,8 @@ export default function Day(props) {
 	}, []);
 
 	return (
-		<section className="mx-auto auto-rows-auto">
-			{games.length && <div className="grid grid-cols-4 container gap-3">
+		<section>
+			{games.length && <div className="grid grid-cols-4 gap-3">
 				<div className="grid gap-3">
 					<Game key="0" game={games[0]} description="Game 1"/>
 				</div>
