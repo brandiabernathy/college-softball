@@ -7,7 +7,7 @@ export default function Header() {
     const pathname = usePathname();
 	return (
 		<header className="shadow-md bg-white flex flex-center">
-			<div className="flex items-center justify-between container py-5">
+			<div className="flex items-center justify-between container max-w-8xl py-5">
                 <div className="flex items-center">
                     <Link href="/">
                         <Image

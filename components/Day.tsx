@@ -43,8 +43,8 @@ export default function Day(props) {
 	});
 
 	return (
-		<section className="grid grid-cols-1 min-[600px]:grid-cols-2 min-[1000px]:grid-cols-3 lg:grid-cols-4 gap-3 px-4 max-w-8xl mx-auto">
+		<div className="grid grid-cols-1 min-[600px]:grid-cols-2 min-[1000px]:grid-cols-3 lg:grid-cols-4 gap-3">
 			{events && events}
-		</section>
+		</div>
 	)
 }
