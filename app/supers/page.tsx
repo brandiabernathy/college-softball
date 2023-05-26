@@ -5,12 +5,12 @@ import Header from '../../components/Header';
 import Day from '../../components/Day';
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
-
+import Box from '../../components/VenueBox';
 
 export default function Supers() {
 	const [games, setGames] = useState([]);
 	const [dayGames, setDayGames] = useState([]);
-	const [selectedDate, setSelectedDate] = useState([]);
+	const [selectedDate, setSelectedDate] = useState('');
 
 	function getGames() {
 		axios
@@ -57,7 +57,23 @@ export default function Supers() {
 						<span onClick={() => filterGames('20230527')} className={"cursor-pointer " + (selectedDate == '20230527' ? 'underline text-blue-900' : '')}>Saturday</span> |&nbsp;
 						<span onClick={() => filterGames('20230528')} className={"cursor-pointer " + (selectedDate == '20230528' ? 'underline text-blue-900' : '')}>Sunday</span>
 					</div>
-					<Day games={dayGames} />
+
+					{selectedDate &&
+						<Day games={dayGames} />
+					}
+
+					{!selectedDate &&
+						<div className="grid min-[730px]:grid-cols-2 min-[1410px]:grid-cols-4 gap-3">
+							<Box venue="4990" games={games} name="Norman"/>
+							<Box venue="6519" games={games} name="Durham"/>
+							<Box venue="4991" games={games} name="Tuscaloosa"/>
+							<Box venue="5000" games={games} name="Knoxville"/>
+							<Box venue="4999" games={games} name="Tallahassee"/>
+							<Box venue="6206" games={games} name="Stillwater"/>
+							<Box venue="5262" games={games} name="Seattle"/>
+							<Box venue="5399" games={games} name="Salt Lake City"/>
+						</div>
+					}
 				</section>
 			</main>
 		</>

@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Header from '../../components/Header';
-import Box from '../../components/RegionalsBox';
+import Box from '../../components/VenueBox';
 
 export default function Regionals() {
 

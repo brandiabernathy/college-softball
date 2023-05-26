@@ -5,6 +5,8 @@ import Link from 'next/link';
 
 export default function Day(props) {
 
+	console.log("props", props);
+
 	let events = props.games
 		.filter(game => game.venue == props.venue)
 		.map(item => {
