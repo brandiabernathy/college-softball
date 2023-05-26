@@ -2,7 +2,7 @@
 
 Shows games & scores of NCAA Softball Regionals, Super Regionals & Women's College World Series
 
-![Alt text](/public/screenshot.jpg?raw=true "Screenshot")
+![Alt text](/public/screenshot.png?raw=true "Screenshot")
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
