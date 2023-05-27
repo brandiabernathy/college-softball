@@ -47,39 +47,37 @@ export default function Regionals() {
 	}
 
 	return (
-		<main className="bg-slate-100 py-5">
-			<div className="container max-w-8xl">
-				<div className="mb-5 text-xl">
-					{/* <span onClick={() => filterGames('20230519')} className={"cursor-pointer " + (selectedDate == '20230519' ? 'underline text-blue-900' : '')}>All</span> |&nbsp; */}
-					<span onClick={() => filterGames('20230519')} className={"cursor-pointer " + (selectedDate == '20230519' ? 'underline text-blue-900' : '')}>Friday</span> |&nbsp;
-					<span onClick={() => filterGames('20230520')} className={"cursor-pointer " + (selectedDate == '20230520' ? 'underline text-blue-900' : '')}>Saturday</span> |&nbsp;
-					<span onClick={() => filterGames('20230521')} className={"cursor-pointer " + (selectedDate == '20230521' ? 'underline text-blue-900' : '')}>Sunday</span>
-				</div>
-
-				{selectedDate &&
-					<Day games={dayGames} />
-				}
-				{!selectedDate &&
-					<div className="grid min-[730px]:grid-cols-2 min-[1410px]:grid-cols-4 gap-3">
-						<Box venue="4990" games={games} name="Norman"/>
-						<Box venue="6342" games={games} name="Clemson"/>
-						<Box venue="6519" games={games} name="Durham"/>
-						<Box venue="6670" games={games} name="Stanford"/>
-						<Box venue="4991" games={games} name="Tuscaloosa"/>
-						<Box venue="6205" games={games} name="Evanston"/>
-						<Box venue="6207" games={games} name="Austin"/>
-						<Box venue="5000" games={games} name="Knoxville"/>
-						<Box venue="4999" games={games} name="Tallahassee"/>
-						<Box venue="4994" games={games} name="Athens"/>
-						<Box venue="5229" games={games} name="Fayetteville"/>
-						<Box venue="6206" games={games} name="Stillwater"/>
-						<Box venue="5262" games={games} name="Seattle"/>
-						<Box venue="4974" games={games} name="Baton Rouge"/>
-						<Box venue="5399" games={games} name="Salt Lake City"/>
-						<Box venue="4993" games={games} name="Los Angeles"/>
-					</div>
-				}
+		<>
+			<div className="mb-5 text-xl">
+				{/* <span onClick={() => filterGames('20230519')} className={"cursor-pointer " + (selectedDate == '20230519' ? 'underline text-blue-900' : '')}>All</span> |&nbsp; */}
+				<span onClick={() => filterGames('20230519')} className={"cursor-pointer " + (selectedDate == '20230519' ? 'underline text-blue-900' : '')}>Friday</span> |&nbsp;
+				<span onClick={() => filterGames('20230520')} className={"cursor-pointer " + (selectedDate == '20230520' ? 'underline text-blue-900' : '')}>Saturday</span> |&nbsp;
+				<span onClick={() => filterGames('20230521')} className={"cursor-pointer " + (selectedDate == '20230521' ? 'underline text-blue-900' : '')}>Sunday</span>
 			</div>
-		</main>
+
+			{selectedDate &&
+				<Day games={dayGames} />
+			}
+			{!selectedDate &&
+				<div className="grid min-[730px]:grid-cols-2 min-[1410px]:grid-cols-4 gap-3">
+					<Box venue="4990" games={games} name="Norman"/>
+					<Box venue="6342" games={games} name="Clemson"/>
+					<Box venue="6519" games={games} name="Durham"/>
+					<Box venue="6670" games={games} name="Stanford"/>
+					<Box venue="4991" games={games} name="Tuscaloosa"/>
+					<Box venue="6205" games={games} name="Evanston"/>
+					<Box venue="6207" games={games} name="Austin"/>
+					<Box venue="5000" games={games} name="Knoxville"/>
+					<Box venue="4999" games={games} name="Tallahassee"/>
+					<Box venue="4994" games={games} name="Athens"/>
+					<Box venue="5229" games={games} name="Fayetteville"/>
+					<Box venue="6206" games={games} name="Stillwater"/>
+					<Box venue="5262" games={games} name="Seattle"/>
+					<Box venue="4974" games={games} name="Baton Rouge"/>
+					<Box venue="5399" games={games} name="Salt Lake City"/>
+					<Box venue="4993" games={games} name="Los Angeles"/>
+				</div>
+			}
+		</>
 	)
 }
