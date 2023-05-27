@@ -22,9 +22,8 @@ export default function Header() {
 			        <h1 className="text-4xl">2023 NCAA College Softball Tournament</h1>
                 </div>
                 <nav className="text-xl">
-                    <span className={pathname == '/regionals' ? 'underline text-blue-900' : ''}><Link href="/regionals">Regionals</Link></span>
-                    <span className={"ml-2.5 " + (pathname == '/supers' ? 'underline text-blue-900' : '')}><Link href="/supers">Super Regionals</Link></span>
-                    <span className={"ml-2.5 " + (pathname == '/wcws' ? 'underline text-blue-900' : '')}><Link href="/wcws">WCWS</Link></span>
+                    <span className={pathname == '/regionals' ? 'underline text-sky-800' : ''}><Link href="/regionals">Regionals</Link></span>
+                    <span className={"ml-8 " + (pathname == '/supers' ? 'underline text-blue-900' : '')}><Link href="/supers">Super Regionals</Link></span>
                 </nav>
             </div>
 		</header>

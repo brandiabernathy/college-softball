@@ -20,7 +20,7 @@ export default function VenueBox(props: Games) {
 				{props.name &&
 					<Link href={pathname + "/" + props.name.toLowerCase()}>
 						{props.name}&nbsp;
-						{pathname == '/supers' && <span> Super</span>}
+						{pathname == '/supers' && <span> Super </span>}
 						Regionals
 					</Link>
 				}

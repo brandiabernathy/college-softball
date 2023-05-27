@@ -51,35 +51,32 @@ export default function Supers() {
 	}
 
 	return (
-		<>
-			<Header />
-			<main className="bg-slate-100 py-5 min-h-screen">
-				<section className="container max-w-8xl">
-					<div className="mb-5 text-xl">
-						<span onClick={() => filterGames('20230525')} className={"cursor-pointer " + (selectedDate == '20230525' ? 'underline text-blue-900' : '')}>Thursday</span> |&nbsp;
-						<span onClick={() => filterGames('20230526')} className={"cursor-pointer " + (selectedDate == '20230526' ? 'underline text-blue-900' : '')}>Friday</span> |&nbsp;
-						<span onClick={() => filterGames('20230527')} className={"cursor-pointer " + (selectedDate == '20230527' ? 'underline text-blue-900' : '')}>Saturday</span> |&nbsp;
-						<span onClick={() => filterGames('20230528')} className={"cursor-pointer " + (selectedDate == '20230528' ? 'underline text-blue-900' : '')}>Sunday</span>
+		<main className="bg-slate-100 py-5">
+			<section className="container max-w-8xl">
+				<div className="mb-5 text-xl">
+					<span onClick={() => filterGames('20230525')} className={"cursor-pointer " + (selectedDate == '20230525' ? 'underline text-blue-900' : '')}>Thursday</span> |&nbsp;
+					<span onClick={() => filterGames('20230526')} className={"cursor-pointer " + (selectedDate == '20230526' ? 'underline text-blue-900' : '')}>Friday</span> |&nbsp;
+					<span onClick={() => filterGames('20230527')} className={"cursor-pointer " + (selectedDate == '20230527' ? 'underline text-blue-900' : '')}>Saturday</span> |&nbsp;
+					<span onClick={() => filterGames('20230528')} className={"cursor-pointer " + (selectedDate == '20230528' ? 'underline text-blue-900' : '')}>Sunday</span>
+				</div>
+
+				{selectedDate &&
+					<Day games={dayGames} />
+				}
+
+				{!selectedDate &&
+					<div className="grid min-[730px]:grid-cols-2 min-[1410px]:grid-cols-4 gap-3">
+						<Box venue="4990" games={games} name="Norman"/>
+						<Box venue="6519" games={games} name="Durham"/>
+						<Box venue="4991" games={games} name="Tuscaloosa"/>
+						<Box venue="5000" games={games} name="Knoxville"/>
+						<Box venue="4999" games={games} name="Tallahassee"/>
+						<Box venue="6206" games={games} name="Stillwater"/>
+						<Box venue="5262" games={games} name="Seattle"/>
+						<Box venue="5399" games={games} name="Salt Lake City"/>
 					</div>
-
-					{selectedDate &&
-						<Day games={dayGames} />
-					}
-
-					{!selectedDate &&
-						<div className="grid min-[730px]:grid-cols-2 min-[1410px]:grid-cols-4 gap-3">
-							<Box venue="4990" games={games} name="Norman"/>
-							<Box venue="6519" games={games} name="Durham"/>
-							<Box venue="4991" games={games} name="Tuscaloosa"/>
-							<Box venue="5000" games={games} name="Knoxville"/>
-							<Box venue="4999" games={games} name="Tallahassee"/>
-							<Box venue="6206" games={games} name="Stillwater"/>
-							<Box venue="5262" games={games} name="Seattle"/>
-							<Box venue="5399" games={games} name="Salt Lake City"/>
-						</div>
-					}
-				</section>
-			</main>
-		</>
+				}
+			</section>
+		</main>
 	)
 }
