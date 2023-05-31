@@ -16,7 +16,10 @@ module.exports = {
       },
       maxWidth: {
         '8xl': '90rem',
-      }
+      },
+      colors: {
+        'royal-blue': '#0060a8',
+      },
     },
   },
   plugins: [],

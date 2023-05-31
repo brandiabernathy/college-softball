@@ -2,11 +2,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function Header() {
+export default function Footer() {
 
 	return (
-		<footer className="bg-blue-900 py-24">
-			<div className="container max-w-8xl py-5">
+		<footer className="bg-royal-blue py-24">
+			<div className="container max-w-8xl py-5 text-white flex justify-center">
+				Powered by
+				<Image
+					src="/espn-logo.svg"
+					alt="ESPN"
+					width={50}
+					height={25}
+					className="ml-2"
+				/>
             </div>
 		</footer>
 	)

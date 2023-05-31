@@ -1,7 +1,6 @@
 'use client'
 import React from 'react';
 import axios from 'axios';
-import Header from '../../components/Header';
 import Day from '../../components/Day';
 import Box from '../../components/VenueBox';
 import { useState, useEffect } from 'react';
@@ -49,10 +48,10 @@ export default function Regionals() {
 	return (
 		<>
 			<div className="mb-5 text-xl">
-				{/* <span onClick={() => filterGames('20230519')} className={"cursor-pointer " + (selectedDate == '20230519' ? 'underline text-blue-900' : '')}>All</span> |&nbsp; */}
-				<span onClick={() => filterGames('20230519')} className={"cursor-pointer " + (selectedDate == '20230519' ? 'underline text-blue-900' : '')}>Friday</span> |&nbsp;
-				<span onClick={() => filterGames('20230520')} className={"cursor-pointer " + (selectedDate == '20230520' ? 'underline text-blue-900' : '')}>Saturday</span> |&nbsp;
-				<span onClick={() => filterGames('20230521')} className={"cursor-pointer " + (selectedDate == '20230521' ? 'underline text-blue-900' : '')}>Sunday</span>
+				<span onClick={() => filterGames('')} className={"cursor-pointer " + (selectedDate == '' ? 'underline text-royal-blue' : '')}>All</span> |&nbsp;
+				<span onClick={() => filterGames('20230519')} className={"cursor-pointer " + (selectedDate == '20230519' ? 'underline text-royal-blue' : '')}>Friday</span> |&nbsp;
+				<span onClick={() => filterGames('20230520')} className={"cursor-pointer " + (selectedDate == '20230520' ? 'underline text-royal-blue' : '')}>Saturday</span> |&nbsp;
+				<span onClick={() => filterGames('20230521')} className={"cursor-pointer " + (selectedDate == '20230521' ? 'underline text-royal-blue' : '')}>Sunday</span>
 			</div>
 
 			{selectedDate &&

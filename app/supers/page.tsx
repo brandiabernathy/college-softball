@@ -1,7 +1,6 @@
 'use client'
 import React from 'react';
 import axios from 'axios';
-import Header from '../../components/Header';
 import Day from '../../components/Day';
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
@@ -17,7 +16,7 @@ export default function Supers() {
 
 	function getGames() {
 		axios
-		.get('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230525-20230528')
+		.get('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230525-20230529')
 		.then(response => {
 			if(response.data.events.length) {
 				setGames(response.data.events.map(game => ({
@@ -53,10 +52,11 @@ export default function Supers() {
 	return (
 		<>
 			<div className="mb-5 text-xl">
-				<span onClick={() => filterGames('20230525')} className={"cursor-pointer " + (selectedDate == '20230525' ? 'underline text-blue-900' : '')}>Thursday</span> |&nbsp;
-				<span onClick={() => filterGames('20230526')} className={"cursor-pointer " + (selectedDate == '20230526' ? 'underline text-blue-900' : '')}>Friday</span> |&nbsp;
-				<span onClick={() => filterGames('20230527')} className={"cursor-pointer " + (selectedDate == '20230527' ? 'underline text-blue-900' : '')}>Saturday</span> |&nbsp;
-				<span onClick={() => filterGames('20230528')} className={"cursor-pointer " + (selectedDate == '20230528' ? 'underline text-blue-900' : '')}>Sunday</span>
+				<span onClick={() => filterGames('')} className={"cursor-pointer " + (selectedDate == '' ? 'underline text-royal-blue' : '')}>All</span> |&nbsp;
+				<span onClick={() => filterGames('20230525')} className={"cursor-pointer " + (selectedDate == '20230525' ? 'underline text-royal-blue' : '')}>Thursday</span> |&nbsp;
+				<span onClick={() => filterGames('20230526')} className={"cursor-pointer " + (selectedDate == '20230526' ? 'underline text-royal-blue' : '')}>Friday</span> |&nbsp;
+				<span onClick={() => filterGames('20230527')} className={"cursor-pointer " + (selectedDate == '20230527' ? 'underline text-royal-blue' : '')}>Saturday</span> |&nbsp;
+				<span onClick={() => filterGames('20230528')} className={"cursor-pointer " + (selectedDate == '20230528' ? 'underline text-royal-blue' : '')}>Sunday</span>
 			</div>
 
 			{selectedDate &&
