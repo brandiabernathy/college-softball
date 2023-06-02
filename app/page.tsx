@@ -1,8 +1,34 @@
 'use client'
 import React from 'react';
-import Image from 'next/image';
+import dayjs from 'dayjs';
+import Game from '../components/Game';
 
-export default function Home() {
+var utc = require('dayjs/plugin/utc');
+dayjs.extend(utc);
+
+async function getInfo() {
+	const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230601-20230609');
+	return res.json();
+}
+
+export default async function Home() {
+	const info = await getInfo();
+
+	const games = info.events
+		.sort((a, b) => a.date < b.date ? -1 : 1)
+		.map(game => ({
+			id: game.id,
+			status: game.status,
+			home: game.competitions[0].competitors[0],
+			away: game.competitions[0].competitors[1],
+			home_rank: game.competitions[0].competitors[0].curatedRank,
+			away_rank: game.competitions[0].competitors[1].curatedRank,
+			description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
+			broadcast: game.competitions[0].broadcasts[0].names.join("/"),
+			venue: game.competitions[0].venue.id,
+			location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
+		}))
+
 
 	return (
 		<>
@@ -14,87 +40,28 @@ export default function Home() {
 							<div>Bracket 1 <br />
 								<span className="font-bold">Winner's Bracket</span>
 							</div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:bottom-10 after:-right-24 after:w-24 after:h-10 after:border-t-2 after:border-r-2">
-								<span className="font-semibold">June 1 - 2:30pm ET - ESPN</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="flex">
-										<Image
-											src="https://a.espncdn.com/i/teamlogos/ncaa/500/201.png"
-											alt="Oklahoma"
-											width={25}
-											height={25}
-											className="mr-2"
-										/>
-										<span className="text-xl mr-2 text-slate-400">1</span>
-										<span className="text-xl">Oklahoma</span>
-									</div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="flex">
-										<Image
-											src="https://a.espncdn.com/i/teamlogos/ncaa/500/24.png"
-											alt="Stanford"
-											width={25}
-											height={25}
-											className="mr-2"
-										/>
-										<span className="text-xl mr-2 text-slate-400">9</span>
-										<span className="text-xl">Stanford</span>
-									</div>
-								</div>
+
+							<div className="relative w-full after:block after:absolute after:bottom-10 after:-right-24 after:w-24 after:h-10 after:border-t-2 after:border-r-2">
+								<Game key="1" game={games[1]} />
 							</div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:top-12 after:-right-24 after:w-24 after:h-10 after:border-b-2 after:border-r-2">
-								<span className="font-semibold">June 1 - 12pm ET - ESPN</span>
-								<div className="flex items-center justify-between my-1 relative">
-								<div className="flex">
-										<Image
-											src="https://a.espncdn.com/i/teamlogos/ncaa/500/333.png"
-											alt="Alabama"
-											width={25}
-											height={25}
-											className="mr-2"
-										/>
-										<span className="text-xl mr-2 text-slate-400">5</span>
-										<span className="text-xl">Alabama</span>
-									</div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="flex">
-										<Image
-											src="https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png"
-											alt="Stanford"
-											width={25}
-											height={25}
-											className="mr-2"
-										/>
-										<span className="text-xl mr-2 text-slate-400">4</span>
-										<span className="text-xl">Tennessee</span>
-									</div>
-								</div>
+							<div className="relative w-full after:block after:absolute after:top-12 after:-right-24 after:w-24 after:h-10 after:border-b-2 after:border-r-2">
+								<Game key="0" game={games[0]} />
 							</div>
+
 							<div className="h-4 w-full"></div>
+
 							<div className="font-bold">Elimination Bracket</div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
-								<span className="font-semibold">June 2 - 7pm ET - ESPN</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
+							<div className="w-full relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
+								<Game key="4" game={games[4]} />
 							</div>
 						</div>
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div className="h-4"></div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
-								<span className="font-semibold">June 3 - 3pm ET - ABC</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
+
+							<div className="w-full relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
+								<Game key="5" game={games[5]} />
 							</div>
+
 							<div className="h-8"></div>
 							<div className="h-fit w-full bg-white p-4 rounded text-base">
 								<span className="font-semibold">June 4 - 3pm ET - ABC</span>
@@ -131,90 +98,30 @@ export default function Home() {
 					</div>
 					<div className="flex gap-8 items-center">
 						<div className="flex flex-wrap gap-8 w-1/3">
-						<div>Bracket 2 <br />
+							<div>Bracket 2 <br />
 								<span className="font-bold">Winner's Bracket</span>
 							</div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:bottom-10 after:-right-24 after:w-24 after:h-10 after:border-t-2 after:border-r-2">
-								<span className="font-semibold">June 1 - 7pm ET - ESPN</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="flex">
-										<Image
-											src="https://a.espncdn.com/i/teamlogos/ncaa/500/52.png"
-											alt="Florida State"
-											width={25}
-											height={25}
-											className="mr-2"
-										/>
-										<span className="text-xl mr-2 text-slate-400">3</span>
-										<span className="text-xl">Florida State</span>
-									</div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="flex">
-										<Image
-											src="https://a.espncdn.com/i/teamlogos/ncaa/500/197.png"
-											alt="Oklahoma State"
-											width={25}
-											height={25}
-											className="mr-2"
-										/>
-										<span className="text-xl mr-2 text-slate-400">6</span>
-										<span className="text-xl">Oklahoma State</span>
-									</div>
-								</div>
+
+							<div className="relative w-full after:block after:absolute after:bottom-10 after:-right-24 after:w-24 after:h-10 after:border-t-2 after:border-r-2">
+								<Game key="2" game={games[2]} />
 							</div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:top-14 after:-right-24 after:w-24 after:h-10 after:border-b-2 after:border-r-2">
-								<span className="font-semibold">June 1 - 9:30pm ET - ESPN</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="flex">
-										<Image
-											src="https://a.espncdn.com/i/teamlogos/ncaa/500/264.png"
-											alt="Washington"
-											width={25}
-											height={25}
-											className="mr-2"
-										/>
-										<span className="text-xl mr-2 text-slate-400">7</span>
-										<span className="text-xl">Washington</span>
-									</div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="flex">
-										<Image
-											src="https://a.espncdn.com/i/teamlogos/ncaa/500/254.png"
-											alt="Utah"
-											width={25}
-											height={25}
-											className="mr-2"
-										/>
-										<span className="text-xl mr-2 text-slate-400">15</span>
-										<span className="text-xl">Utah</span>
-									</div>
-								</div>
+							<div className="relative w-full after:block after:absolute after:top-14 after:-right-24 after:w-24 after:h-10 after:border-b-2 after:border-r-2">
+								<Game key="3" game={games[3]} />
 							</div>
+
 							<div className="h-4 w-full"></div>
+
 							<div className="font-bold">Elimination Bracket</div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
-								<span className="font-semibold">June 2 - 9:30pm ET - ESPN</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
+							<div className="w-full relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
+								<Game key="5" game={games[5]} />
 							</div>
 						</div>
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div className="h-4"></div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base  relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
-								<span className="font-semibold">June 3 - 7pm ET - ESPN</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
+							<div className="w-full relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
+								<Game key="5" game={games[5]} />
 							</div>
+
 							<div className="h-8"></div>
 							<div className="h-fit w-full bg-white p-4 rounded text-base">
 								<span className="font-semibold">June 4 - 7pm ET - ESPN2</span>
