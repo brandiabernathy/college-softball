@@ -10,9 +10,9 @@ export default async function Home() {
 	const info = await getInfo();
 
 	const games = info.events
-		.sort((a, b) => a.date < b.date ? -1 : 1)
-		.filter(game => game.status.type.detail != 'Postponed')
-		.map(game => ({
+		.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
+		.filter((game: any) => game.status.type.detail != 'Postponed')
+		.map((game: any) => ({
 			id: game.id,
 			status: game.status,
 			home: game.competitions[0].competitors[0],
@@ -28,13 +28,13 @@ export default async function Home() {
 
 	return (
 		<div className="overflow-x-scroll">
-			<h2 className="text-3xl mb-8">Women's College World Series</h2>
+			<h2 className="text-3xl mb-8">Women&apos;s College World Series</h2>
 			<div className="grid grid-cols-4 gap-8 min-w-[1000px]">
 				<div className="col-span-3">
 					<div className="flex gap-8 items-center mb-10">
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div>Bracket 1 <br />
-								<span className="font-bold">Winner's Bracket</span>
+								<span className="font-bold">Winner&apos;s Bracket</span>
 							</div>
 
 							<div className="relative w-full after:block after:absolute after:bottom-10 after:-right-24 after:w-24 after:h-10 after:border-t-2 after:border-r-2">
@@ -115,7 +115,7 @@ export default async function Home() {
 					<div className="flex gap-8 items-center">
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div>Bracket 2 <br />
-								<span className="font-bold">Winner's Bracket</span>
+								<span className="font-bold">Winner&apos;s Bracket</span>
 							</div>
 
 							<div className="relative w-full after:block after:absolute after:bottom-10 after:-right-24 after:w-24 after:h-10 after:border-t-2 after:border-r-2">

@@ -16,7 +16,7 @@ export default function Regionals() {
 		.get('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230519-20230522')
 		.then(response => {
 			if(response.data.events.length) {
-				setGames(response.data.events.map(game => ({
+				setGames(response.data.events.map((game: any) => ({
 					id: game.id,
 					date: dayjs(game.date).format('YYYYMMDD'),
 					status: game.status,

@@ -19,7 +19,7 @@ export default function Supers() {
 		.get('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230525-20230529')
 		.then(response => {
 			if(response.data.events.length) {
-				setGames(response.data.events.map(game => ({
+				setGames(response.data.events.map((game:any) => ({
 					id: game.id,
 					date: dayjs(game.date).format('YYYYMMDD'),
 					time: dayjs(game.date).format('ha dd'),
