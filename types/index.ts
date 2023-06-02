@@ -47,3 +47,7 @@ export interface Games {
     venue?: string,
     name?: string,
 }
+
+export interface Bracket {
+    venue: string,
+}

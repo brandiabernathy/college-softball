@@ -1,21 +1,20 @@
 'use client';
 import React from 'react';
-import axios from 'axios';
 import Game from './Game';
-import { useState, useEffect } from 'react';
+import { Bracket } from '../types';
 
 async function getInfo() {
 	const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230519-20230522');
 	return res.json();
 }
 
-export default async function Day(props) {
+export default async function Day(props: Bracket) {
 	const info = await getInfo();
 
 	const games = info.events
-		.filter(game => game.competitions[0].venue.id == props.venue)
-		.sort((a, b) => a.date < b.date ? -1 : 1)
-		.map(game => ({
+		.filter((game: any) => game.competitions[0].venue.id == props.venue)
+		.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
+		.map((game: any) => ({
 			id: game.id,
 			date: game.date,
 			status: game.status,

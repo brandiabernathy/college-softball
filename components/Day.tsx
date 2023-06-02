@@ -4,8 +4,6 @@ import { usePathname } from 'next/navigation';
 import { Games } from '../types';
 
 export default function Day(props: Games) {
-	console.log('props', props);
-
 	const pathname = usePathname();
 
 	let events = props.games.map((game: any)=> {
