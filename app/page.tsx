@@ -1,10 +1,5 @@
-'use client'
 import React from 'react';
-import dayjs from 'dayjs';
 import Game from '../components/Game';
-
-var utc = require('dayjs/plugin/utc');
-dayjs.extend(utc);
 
 async function getInfo() {
 	const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230601-20230609');
@@ -16,6 +11,7 @@ export default async function Home() {
 
 	const games = info.events
 		.sort((a, b) => a.date < b.date ? -1 : 1)
+		.filter(game => game.status.type.detail != 'Postponed')
 		.map(game => ({
 			id: game.id,
 			status: game.status,
@@ -28,6 +24,8 @@ export default async function Home() {
 			venue: game.competitions[0].venue.id,
 			location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
 		}))
+
+		console.log('games', games);
 
 
 	return (
@@ -52,18 +50,37 @@ export default async function Home() {
 
 							<div className="font-bold">Elimination Bracket</div>
 							<div className="w-full relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
-								<Game key="4" game={games[4]} />
+								{ games[4] && <Game key="4" game={games[4]} /> }
+								{ !games[4] && <div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
+									<span className="font-semibold">June 2 - 7pm ET - ESPN</span>
+									<div className="flex items-center justify-between my-1 relative">
+										<div className="h-7"></div>
+									</div>
+									<div className="flex items-center justify-between my-1 relative">
+										<div className="h-7"></div>
+									</div>
+								</div> }
 							</div>
 						</div>
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div className="h-4"></div>
 
 							<div className="w-full relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
-								<Game key="5" game={games[5]} />
+								{ games[6] && <Game key="6" game={games[6]} /> }
+								{ !games[6] && <div className="h-fit w-full bg-white p-4 rounded text-base">
+									<span className="font-semibold">June 3 - 3pm ET - ABC</span>
+									<div className="flex items-center justify-between my-1 relative">
+										<div className="h-7"></div>
+									</div>
+									<div className="flex items-center justify-between my-1 relative">
+										<div className="h-7"></div>
+									</div>
+								</div> }
 							</div>
 
 							<div className="h-8"></div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base">
+							{ games[8] && <Game key="8" game={games[8]} />}
+							{ !games[8] && <div className="h-fit w-full bg-white p-4 rounded text-base">
 								<span className="font-semibold">June 4 - 3pm ET - ABC</span>
 								<div className="flex items-center justify-between my-1 relative">
 									<div className="h-7"></div>
@@ -71,11 +88,12 @@ export default async function Home() {
 								<div className="flex items-center justify-between my-1 relative">
 									<div className="h-7"></div>
 								</div>
-							</div>
+							</div> }
 						</div>
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div className="h-10"></div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-left-8 after:top-10 after:w-8 after:h-4 after:border-t-2">
+							{ games[10] && <Game key="10" game={games[10]} /> }
+							{ !games[10] &&<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-left-8 after:top-10 after:w-8 after:h-4 after:border-t-2">
 								<span className="font-semibold">June 5 - 12pm ET - ESPN</span>
 								<div className="flex items-center justify-between my-1 relative">
 									<div className="h-7"></div>
@@ -83,7 +101,7 @@ export default async function Home() {
 								<div className="flex items-center justify-between my-1 relative">
 									<div className="h-7"></div>
 								</div>
-							</div>
+							</div> }
 							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-top-8 after:right-20 after:w-4 after:h-8 after:border-r-2">
 								<span className="font-semibold">June 5 - 2:30pm ET - ESPN</span>
 								<div className="flex items-center justify-between my-1 relative">
@@ -113,17 +131,36 @@ export default async function Home() {
 
 							<div className="font-bold">Elimination Bracket</div>
 							<div className="w-full relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
-								<Game key="5" game={games[5]} />
+								{ games[5] && <Game key="5" game={games[5]} /> }
+								{ !games[5] && <div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
+									<span className="font-semibold">June 2 - 9:30pm ET - ESPN</span>
+									<div className="flex items-center justify-between my-1 relative">
+										<div className="h-7"></div>
+									</div>
+									<div className="flex items-center justify-between my-1 relative">
+										<div className="h-7"></div>
+									</div>
+								</div> }
 							</div>
 						</div>
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div className="h-4"></div>
 							<div className="w-full relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
-								<Game key="5" game={games[5]} />
+								{ games[7] && <Game key="7" game={games[7]} /> }
+								{ !games[7] && <div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
+									<span className="font-semibold">June 3 - 7pm ET - ESPN</span>
+									<div className="flex items-center justify-between my-1 relative">
+										<div className="h-7"></div>
+									</div>
+									<div className="flex items-center justify-between my-1 relative">
+										<div className="h-7"></div>
+									</div>
+								</div> }
 							</div>
 
 							<div className="h-8"></div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base">
+							{ games[9] && <Game key="9" game={games[9]} /> }
+							{ !games[9] && <div className="h-fit w-full bg-white p-4 rounded text-base">
 								<span className="font-semibold">June 4 - 7pm ET - ESPN2</span>
 								<div className="flex items-center justify-between my-1 relative">
 									<div className="h-7"></div>
@@ -131,11 +168,12 @@ export default async function Home() {
 								<div className="flex items-center justify-between my-1 relative">
 									<div className="h-7"></div>
 								</div>
-							</div>
+							</div> }
 						</div>
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div className="h-10"></div>
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-left-8 after:top-10 after:w-8 after:h-4 after:border-t-2">
+							{ games[11] && <Game key="11" game={games[11]} />}
+							{ !games[11] && <div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-left-8 after:top-10 after:w-8 after:h-4 after:border-t-2">
 								<span className="font-semibold">June 5 - 7pm ET - ESPN</span>
 								<div className="flex items-center justify-between my-1 relative">
 									<div className="h-7"></div>
@@ -143,7 +181,7 @@ export default async function Home() {
 								<div className="flex items-center justify-between my-1 relative">
 									<div className="h-7"></div>
 								</div>
-							</div>
+							</div> }
 							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-top-8 after:right-20 after:w-4 after:h-8 after:border-r-2">
 								<span className="font-semibold">June 5 - 9:30pm ET - ESPN</span>
 								<div className="flex items-center justify-between my-1 relative">

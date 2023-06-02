@@ -9,13 +9,14 @@ export default function Game(props: Game) {
             <span className="font-semibold">{props.game.status.type.shortDetail}</span> {!props.game.status.type.completed && <span> - {props.game.broadcast}</span>}
             <div className="flex items-center justify-between my-1 relative">
                 <div className="flex">
-                    <Image
+                    { props.game.away.team.logo && <Image
                         src={props.game.away.team.logo}
                         alt={props.game.away.team.location}
                         width={25}
                         height={25}
                         className="mr-2"
-                    />
+                    /> }
+                    { !props.game.away.team.logo && <div className="w-[25px] mr-2"></div>}
                     {props.game.away_rank && <span className="text-xl mr-2 text-slate-400">{props.game.away.curatedRank.current}</span>}
                     <span className={"text-xl " + (props.game.status.type.completed && !props.game.away.winner ? 'text-slate-400' : '')}>{props.game.away.team.location}</span>
                 </div>
@@ -24,13 +25,14 @@ export default function Game(props: Game) {
             </div>
             <div className="flex items-center justify-between my-1 relative">
                 <div className="flex">
-                    <Image
+                   { props.game.home.team.logo && <Image
                         src={props.game.home.team.logo}
                         alt={props.game.home.team.location}
                         width={25}
                         height={25}
                         className="mr-2"
-                    />
+                    /> }
+                    { !props.game.home.team.logo && <div className="w-[25px] mr-2"></div>}
                     {props.game.home_rank && <span className="text-xl mr-2 text-slate-400">{props.game.home.curatedRank.current}</span>}
                     <span className={"text-xl " + (props.game.status.type.completed && !props.game.home.winner ? 'text-slate-400' : '')}>{props.game.home.team.location}</span>
                 </div>

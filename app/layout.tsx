@@ -19,7 +19,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={"min-h-screen " + (barlow_condensed.className)}>
 				<Header />
-				<main className="bg-slate-100 py-10 min-h-[calc(100vh-376px)]">
+				<main className="bg-slate-100 py-10 min-h-[calc(100vh-328px)] md:min-h-[calc(100vh-376px)]">
 					<div className="container max-w-8xl">
 						{children}
 					</div>

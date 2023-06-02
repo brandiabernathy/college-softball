@@ -42,9 +42,9 @@ export default function Header() {
                         className="relative z-20"
                     /> }
                 </div>
-                <nav className={"text-xl md:block " + (menuOpen ? 'fixed bg-slate-300 top-0 left-0 right-0 bottom-0 z-10 flex items-center justify-center text-4xl flex-col gap-8' : 'hidden')}>
-                    <span className={pathname == '/regionals' ? 'underline text-royal-blue' : ''}><Link href="/regionals">Regionals</Link></span>
-                    <span className={"md:ml-8 " + (pathname == '/supers' ? 'underline text-royal-blue' : '')}><Link href="/supers">Super Regionals</Link></span>
+                <nav className={"text-xl md:block " + (menuOpen ? 'fixed bg-slate-300 top-0 left-0 right-0 bottom-0 z-10 flex items-center justify-center text-5xl flex-col gap-8' : 'hidden')}>
+                    <span className={pathname == '/regionals' ? 'underline text-royal-blue' : ''}><Link href="/regionals" onClick={() => setMenuOpen(false)}>Regionals</Link></span>
+                    <span className={"md:ml-8 " + (pathname == '/supers' ? 'underline text-royal-blue' : '')}><Link href="/supers" onClick={() => setMenuOpen(false)}>Super Regionals</Link></span>
                 </nav>
             </div>
 		</header>
