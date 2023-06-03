@@ -6,7 +6,6 @@ export default function StanfordRegional() {
 	return (
 		<>
 			<h2 className="text-3xl mb-5">Stanford Regional</h2>
-			{/* @ts-expect-error */}
 			<Bracket venue="6670" />
 		</>
 	)

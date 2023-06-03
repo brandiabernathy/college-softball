@@ -26,6 +26,7 @@ export default function Day(props: Bracket) {
 					location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
 				})))
 			});
+			// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	console.log('games', games);
