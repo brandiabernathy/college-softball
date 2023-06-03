@@ -1,29 +1,32 @@
+'use client';
 import React from 'react';
+import { useState, useEffect } from 'react';
 import Game from '../components/Game';
 
-async function getInfo() {
-	const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230601-20230609');
-	return res.json();
-}
+export default function Home() {
+	const [games, setGames] = useState(null);
 
-export default async function Home() {
-	const info = await getInfo();
-
-	const games = info.events
-		.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
-		.filter((game: any) => game.status.type.detail != 'Postponed')
-		.map((game: any) => ({
-			id: game.id,
-			status: game.status,
-			home: game.competitions[0].competitors[0],
-			away: game.competitions[0].competitors[1],
-			home_rank: game.competitions[0].competitors[0].curatedRank,
-			away_rank: game.competitions[0].competitors[1].curatedRank,
-			description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
-			broadcast: game.competitions[0].broadcasts[0].names.join("/"),
-			venue: game.competitions[0].venue.id,
-			location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
-		}));
+	useEffect(() => {
+		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230601-20230609')
+			.then((res) => res.json())
+			.then((data) => {
+				setGames(data.events
+					.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
+					.filter((game: any) => game.status.type.detail != 'Postponed')
+					.map((game: any) => ({
+						id: game.id,
+						status: game.status,
+						home: game.competitions[0].competitors[0],
+						away: game.competitions[0].competitors[1],
+						home_rank: game.competitions[0].competitors[0].curatedRank,
+						away_rank: game.competitions[0].competitors[1].curatedRank,
+						description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
+						broadcast: game.competitions[0].broadcasts[0].names.join("/"),
+						venue: game.competitions[0].venue.id,
+						location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
+					})));
+		 	});
+	  }, []);
 
 
 	return (
