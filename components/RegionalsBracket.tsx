@@ -1,35 +1,38 @@
 'use client';
-import React from 'react';
 import Game from './Game';
 import { Bracket } from '../types';
+import { useState, useEffect } from 'react';
 
-async function getInfo() {
-	const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230519-20230522');
-	return res.json();
-}
+export default function Day(props: Bracket) {
+	const [games, setGames] = useState(null);
 
-export default async function Day(props: Bracket) {
-	const info = await getInfo();
+	useEffect(() => {
+		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230519-20230522')
+			.then((res) => res.json())
+			.then((data) => {
+				setGames(data.events
+				.filter((game: any) => game.competitions[0].venue.id == props.venue)
+				.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
+				.map((game: any) => ({
+					id: game.id,
+					date: game.date,
+					status: game.status,
+					home: game.competitions[0].competitors[0],
+					away: game.competitions[0].competitors[1],
+					home_rank: game.competitions[0].competitors[0].curatedRank,
+					away_rank: game.competitions[0].competitors[1].curatedRank,
+					description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
+					broadcast: game.competitions[0].broadcasts[0].names[0],
+					location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
+				})))
+			});
+	}, []);
 
-	const games = info.events
-		.filter((game: any) => game.competitions[0].venue.id == props.venue)
-		.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
-		.map((game: any) => ({
-			id: game.id,
-			date: game.date,
-			status: game.status,
-			home: game.competitions[0].competitors[0],
-			away: game.competitions[0].competitors[1],
-			home_rank: game.competitions[0].competitors[0].curatedRank,
-			away_rank: game.competitions[0].competitors[1].curatedRank,
-			description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
-			broadcast: game.competitions[0].broadcasts[0].names[0],
-			location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
-		}));
+	console.log('games', games);
 
 	return (
 		<section>
-			{games.length && <div className="flex flex-col lg:flex-row gap-8 items-center">
+			{games && <div className="flex flex-col lg:flex-row gap-8 items-center">
 				<div className="flex flex-wrap gap-8 lg:w-1/4">
 					<Game key="0" game={games[0]} description="Opening Round"/>
 					<Game key="1" game={games[1]} description="Opening Round"/>

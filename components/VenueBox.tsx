@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import Game from './GameLine';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -18,10 +17,8 @@ export default function VenueBox(props: Games) {
 		<div className="grid bg-white p-2">
 			<div className="text-xl text-center mb-2">
 				{props.name &&
-					<Link href={pathname + "/" + props.name.toLowerCase()}>
-						{props.name}&nbsp;
-						{pathname == '/supers' && <span> Super </span>}
-						Regionals
+					<Link href={pathname + "/" + props.name.toLowerCase().replaceAll(' ', '-')}>
+						{props.name}
 					</Link>
 				}
 				</div>

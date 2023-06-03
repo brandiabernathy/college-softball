@@ -1,6 +1,4 @@
 'use client'
-import React from 'react';
-import axios from 'axios';
 import Day from '../../components/Day';
 import Box from '../../components/VenueBox';
 import { useState, useEffect } from 'react';
@@ -11,12 +9,11 @@ export default function Regionals() {
 	const [dayGames, setDayGames] = useState([]);
 	const [selectedDate, setSelectedDate] = useState('');
 
-	function getGames() {
-		axios
-		.get('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230519-20230522')
-		.then(response => {
-			if(response.data.events.length) {
-				setGames(response.data.events.map((game: any) => ({
+	useEffect(() => {
+		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230519-20230522')
+			.then((res) => res.json())
+			.then((data) => {
+				setGames(data.events.map((game: any) => ({
 					id: game.id,
 					date: dayjs(game.date).format('YYYYMMDD'),
 					status: game.status,
@@ -29,16 +26,10 @@ export default function Regionals() {
 					venue: game.competitions[0].venue.id,
 					location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
 				})));
-			}
-			else {
-				setGames([]);
-			}
-		})
-	}
-
-	useEffect(() => {
-		getGames();
+			});
 	}, []);
+
+	console.log('games', games);
 
 	function filterGames(date: string) {
 		setSelectedDate (date);
