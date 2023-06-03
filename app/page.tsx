@@ -26,13 +26,15 @@ export default function Home() {
 						location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
 					})));
 		 	});
-	  }, []);
+	}, []);
+
+	console.log('games', games);
 
 
 	return (
 		<div className="overflow-x-scroll">
 			<h2 className="text-3xl mb-8">Women&apos;s College World Series</h2>
-			<div className="grid grid-cols-4 gap-8 min-w-[1000px]">
+			{ games && <div className="grid grid-cols-4 gap-8 min-w-[1000px]">
 				<div className="col-span-3">
 					<div className="flex gap-8 items-center mb-10">
 						<div className="flex flex-wrap gap-8 w-1/3">
@@ -229,7 +231,7 @@ export default function Home() {
 						<div className="text-slate-400">If Necessary</div>
 					</div>
 				</div>
-			</div>
+			</div> }
 		</div>
 	)
 }
