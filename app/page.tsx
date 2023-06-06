@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Game from '../components/Game';
 
@@ -105,16 +105,6 @@ export default function Home() {
 									<div className="h-7"></div>
 								</div>
 							</div> }
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-top-8 after:right-20 after:w-4 after:h-8 after:border-r-2">
-								<span className="font-semibold">6/5 - 2:30 PM EDT</span><span> - ESPN/ESPN+</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="text-slate-400">If Necessary</div>
-							</div>
 						</div>
 					</div>
 					<div className="flex gap-8 items-center">
@@ -185,16 +175,6 @@ export default function Home() {
 									<div className="h-7"></div>
 								</div>
 							</div> }
-							<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-top-8 after:right-20 after:w-4 after:h-8 after:border-r-2">
-								<span className="font-semibold">6/5 - 9:30 PM EDT</span><span> - ESPN/ESPN+</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="text-slate-400">If Necessary</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -202,34 +182,57 @@ export default function Home() {
 
 				<div className="flex flex-wrap gap-8 h-fit">
 					<div className="h-fit text-xl">FINALS</div>
-					<div className="h-fit w-full bg-white p-4 rounded text-base">
-						<span className="font-semibold">6/7 - 8:00 PM EDT</span><span> - ESPN/ESPN+</span>
+					{ games[12] && <Game key="12" game={games[12]} /> }
+					{ !games[12] && <div className="h-fit w-full bg-white p-4 rounded text-base">
+						<span className="font-semibold">6/7 - 8:00 PM EDT</span><span> - ESPN</span>
 						<div className="flex items-center justify-between my-1 relative">
 							<div className="h-7"></div>
 						</div>
 						<div className="flex items-center justify-between my-1 relative">
 							<div className="h-7"></div>
 						</div>
-					</div>
-					<div className="h-fit w-full bg-white p-4 rounded text-base">
-						<span className="font-semibold">6/8 - 7:30 PM EDT</span><span> - ESPN/ESPN+</span>
+					</div> }
+					{ games[13] && <Game key="13" game={games[13]} /> }
+					{ !games[13] && <div className="h-fit w-full bg-white p-4 rounded text-base">
+						<span className="font-semibold">6/8 - 7:30 PM EDT</span><span> - ESPN</span>
 						<div className="flex items-center justify-between my-1 relative">
 							<div className="h-7"></div>
 						</div>
 						<div className="flex items-center justify-between my-1 relative">
 							<div className="h-7"></div>
 						</div>
-					</div>
-					<div className="h-fit w-full bg-white p-4 rounded text-base">
-						<span className="font-semibold">6/9 - 8:00 PM EDT</span><span> - ESPN/ESPN+</span>
+					</div> }
+					{ games[14] && <Game key="14" game={games[14]} /> }
+					{ !games[14] && <div className="h-fit w-full bg-white p-4 rounded text-base">
+						<span className="font-semibold">6/9 - 8:00 PM EDT</span><span> - ESPN</span>
 						<div className="flex items-center justify-between my-1 relative">
-							<div className="h-7"></div>
+							<div className="flex">
+								<Image
+									src="https://a.espncdn.com/i/teamlogos/ncaa/500/52.png"
+									alt="Florida State"
+									width={25}
+									height={25}
+									className="mr-2"
+								/>
+								<span className="text-xl mr-2 text-slate-400">3</span>
+								<span className="text-xl">Florida State</span>
+							</div>
 						</div>
 						<div className="flex items-center justify-between my-1 relative">
-							<div className="h-7"></div>
+							<div className="flex">
+								<Image
+									src="https://a.espncdn.com/i/teamlogos/ncaa/500/201.png"
+									alt="Oklahoma"
+									width={25}
+									height={25}
+									className="mr-2"
+								/>
+								<span className="text-xl mr-2 text-slate-400">1</span>
+								<span className="text-xl">Oklahoma</span>
+							</div>
 						</div>
 						<div className="text-slate-400">If Necessary</div>
-					</div>
+					</div> }
 				</div>
 			</div> }
 		</div>
