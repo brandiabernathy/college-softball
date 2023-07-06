@@ -1,6 +1,6 @@
 # college softball
 
-Shows games & scores of NCAA Softball Regionals, Super Regionals & Women's College World Series
+Shows games & scores of NCAA Divison I Softball Regionals, Super Regionals & Women's College World Series
 
 ![Alt text](/public/screenshot.png?raw=true "Screenshot")
 
