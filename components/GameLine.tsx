@@ -1,4 +1,4 @@
-import { Game} from '../types';
+import { Game } from '../types';
 
 export default function Game(props: Game) {
 

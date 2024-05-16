@@ -13,7 +13,7 @@ export default function Supers() {
 	const [selectedDate, setSelectedDate] = useState('');
 
 	useEffect(() => {
-		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230525-20230529')
+		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240523-20240526')
 			.then((res) => res.json())
 			.then((data) => {
 				setGames(data.events.map((game: any) => ({
@@ -33,7 +33,7 @@ export default function Supers() {
 			});
 	}, []);
 
-	console.log('games', games);
+	console.log('suers games', games);
 
 	function filterGames(date: string) {
 		setSelectedDate (date);
@@ -56,14 +56,15 @@ export default function Supers() {
 
 			{!selectedDate &&
 				<div className="grid min-[730px]:grid-cols-2 min-[1410px]:grid-cols-4 gap-3">
-					<Box venue="4990" games={games} name="Norman"/>
+					<p className="text-xl">No games scheduled yet</p>
+					{/* <Box venue="4990" games={games} name="Norman"/>
 					<Box venue="6519" games={games} name="Durham"/>
 					<Box venue="4991" games={games} name="Tuscaloosa"/>
 					<Box venue="5000" games={games} name="Knoxville"/>
 					<Box venue="4999" games={games} name="Tallahassee"/>
 					<Box venue="6206" games={games} name="Stillwater"/>
 					<Box venue="5262" games={games} name="Seattle"/>
-					<Box venue="5399" games={games} name="Salt Lake City"/>
+					<Box venue="5399" games={games} name="Salt Lake City"/> */}
 				</div>
 			}
 		</>

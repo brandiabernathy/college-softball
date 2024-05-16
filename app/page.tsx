@@ -2,39 +2,43 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Game from '../components/Game';
+import dayjs from 'dayjs';
+var utc = require('dayjs/plugin/utc')
+dayjs.extend(utc);
 
 export default function Home() {
-	const [games, setGames] = useState(null);
+	const [games, setGames] = useState([]);
 
 	useEffect(() => {
-		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20230601-20230609')
+		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240530-20240607')
 			.then((res) => res.json())
 			.then((data) => {
-				setGames(data.events
-					.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
-					.filter((game: any) => game.status.type.detail != 'Postponed')
-					.map((game: any) => ({
-						id: game.id,
-						status: game.status,
-						home: game.competitions[0].competitors[0],
-						away: game.competitions[0].competitors[1],
-						home_rank: game.competitions[0].competitors[0].curatedRank,
-						away_rank: game.competitions[0].competitors[1].curatedRank,
-						description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
-						broadcast: game.competitions[0].broadcasts[0].names.join("/"),
-						venue: game.competitions[0].venue.id,
-						location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
-					})));
+				if(data.events) {
+					setGames(data.events
+						.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
+						.filter((game: any) => game.status.type.detail != 'Postponed')
+						.map((game: any) => ({
+							id: game.id,
+							status: game.status,
+							home: game.competitions[0].competitors[0],
+							away: game.competitions[0].competitors[1],
+							home_rank: game.competitions[0].competitors[0].curatedRank,
+							away_rank: game.competitions[0].competitors[1].curatedRank,
+							description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
+							broadcast:  game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/") : 'TBD',
+							venue: game.competitions[0].venue.id,
+							location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
+						})));
+				}
 		 	});
 	}, []);
-
-	console.log('games', games);
 
 
 	return (
 		<div className="overflow-x-scroll">
 			<h2 className="text-3xl mb-8">Women&apos;s College World Series</h2>
-			{ games && <div className="grid grid-cols-4 gap-8 min-w-[1000px]">
+			{ games.length == 0 && <p className="text-xl">Bracket will appear closer to May 30</p> }
+			{ games.length > 0 && <div className="grid grid-cols-4 gap-8 min-w-[1000px]">
 				<div className="col-span-3">
 					<div className="flex gap-8 items-center mb-10">
 						<div className="flex flex-wrap gap-8 w-1/3">

@@ -21,7 +21,7 @@ export default function Header() {
                             priority
                         />
                     </Link>
-			        <h1 className="text-lg lg:text-4xl">2023 NCAA College Softball Tournament</h1>
+			        <h1 className="text-lg lg:text-4xl">2024 NCAA College Softball Tournament</h1>
                 </div>
                 <div className="md:hidden">
                     { !menuOpen && <Image
