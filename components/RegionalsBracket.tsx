@@ -7,7 +7,7 @@ export default function Day(props: Bracket) {
 	const [games, setGames] = useState(null);
 
 	useEffect(() => {
-		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240517-20240519')
+		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240517-20240520')
 			.then((res) => res.json())
 			.then((data) => {
 				setGames(data.events

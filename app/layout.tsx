@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 const barlow_condensed = Barlow_Condensed({ subsets: ['latin'], weight: ['400', '600'] });
 
 export const metadata = {
-	title: '2023 NCAA Softball Tournament',
+	title: '2024 NCAA Softball Tournament',
 	description: '',
 }
 

@@ -10,7 +10,7 @@ export default function Regionals() {
 	const [selectedDate, setSelectedDate] = useState('');
 
 	useEffect(() => {
-		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240517-20240519')
+		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240517-20240520')
 			.then((res) => res.json())
 			.then((data) => {
 				setGames(data.events.map((game: any) => ({
