@@ -13,7 +13,6 @@ export default function Regionals() {
 		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240517-20240520')
 			.then((res) => res.json())
 			.then((data) => {
-				console.log('data.events', data.events);
 				setGames(data.events
 					.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
 					.filter((game: any) => game.name != 'TBD at TBD')

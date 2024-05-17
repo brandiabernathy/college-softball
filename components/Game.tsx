@@ -8,7 +8,12 @@ export default function Game(props: SingleGame) {
 		<div className="h-fit w-full bg-white p-4 rounded text-base">
             { props.game &&
                 <>
-                    <span className="font-semibold">{props.game.status.type.shortDetail}</span> {!props.game.status.type.completed && <span> - {props.game.broadcast}</span>}
+                    <span className="font-semibold">
+                        {props.game.status.type.description == 'Scheduled' &&
+                           <>{props.game.time ? props.game.time : props.game.status.type.shortDetail}</>
+                        }
+                        {props.game.status.type.description != 'Scheduled' && props.game.status.type.shortDetail}</span>
+                        {!props.game.status.type.completed && <span> - {props.game.broadcast}</span>}
                     <div className="flex items-center justify-between my-1 relative">
                         <div className="flex">
                             { props.game.away.team.logo && <Image
