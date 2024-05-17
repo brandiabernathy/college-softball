@@ -12,7 +12,7 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        'game': '1fr 20px 48px 20px 1fr',
+        'game': '1fr 20px 58px 20px 1fr',
       },
       maxWidth: {
         '8xl': '90rem',
