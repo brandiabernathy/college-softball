@@ -13,19 +13,22 @@ export default function Regionals() {
 		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240517-20240520')
 			.then((res) => res.json())
 			.then((data) => {
-				setGames(data.events.map((game: any) => ({
-					id: game.id,
-					date: dayjs(game.date).format('YYYYMMDD'),
-					time: dayjs(game.date).format('M/D h:mmA'),
-					status: game.status,
-					home: game.competitions[0].competitors[0],
-					away: game.competitions[0].competitors[1],
-					home_rank: game.competitions[0].competitors[0].curatedRank,
-					away_rank: game.competitions[0].competitors[1].curatedRank,
-					description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
-					broadcast: game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/") : 'TBD',
-					venue: game.competitions[0].venue.id,
-					location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
+				setGames(data.events
+					.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
+					.filter((game: any) => game.name != 'TBD at TBD')
+					.map((game: any) => ({
+						id: game.id,
+						date: dayjs(game.date).format('YYYYMMDD'),
+						time: dayjs(game.date).format('M/D h:mmA'),
+						status: game.status,
+						home: game.competitions[0].competitors[0],
+						away: game.competitions[0].competitors[1],
+						home_rank: game.competitions[0].competitors[0].curatedRank,
+						away_rank: game.competitions[0].competitors[1].curatedRank,
+						description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
+						broadcast: game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/") : 'TBD',
+						venue: game.competitions[0].venue.id,
+						location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
 				})));
 			});
 	}, []);
