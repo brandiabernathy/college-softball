@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Game } from '../types';
+import { SingleGame } from '../types';
 
-export default function Game(props: Game) {
+export default function Game(props: SingleGame) {
 
 	return (
 		<div className="h-fit w-full bg-white p-4 rounded text-base">

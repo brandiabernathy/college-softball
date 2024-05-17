@@ -1,6 +1,6 @@
-import { Game } from '../types';
+import { SingleGame } from '../types';
 
-export default function Game(props: Game) {
+export default function Game(props: SingleGame) {
 
 	return (
 		<div className="grid grid-cols-game py-0.5 text-base">

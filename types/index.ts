@@ -1,5 +1,5 @@
 
-export interface Game {
+export interface SingleGame {
     pathname?: string,
     description?: string,
     game: {
