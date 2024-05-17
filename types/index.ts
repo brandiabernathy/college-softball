@@ -13,6 +13,7 @@ export interface SingleGame {
             team: {
                 location: string,
                 logo: string,
+                shortDisplayName: string,
             },
             curatedRank: {
                 current: number,
@@ -24,6 +25,7 @@ export interface SingleGame {
             team: {
                 location: string,
                 logo: string,
+                shortDisplayName: string,
             },
             curatedRank: {
                 current: number,
