@@ -3,7 +3,7 @@ import { SingleGame } from '../types';
 export default function Game(props: SingleGame) {
 
 	return (
-		<div className="grid grid-cols-game py-0.5 text-base">
+		<div className={"grid grid-cols-game py-0.5 text-lg items-center " + (props.game.status.type.description == 'In Progress' ? 'bg-emerald-100' : '')}>
             <div className={"text-right pr-1 " + (props.game.status.type.completed && !props.game.away.winner ? 'text-slate-400' : '')}>
                 {props.game.away_rank && <span className="mr-1">#{props.game.away.curatedRank.current}</span>}
                 <span>{props.game.away.team.shortDisplayName}</span>
