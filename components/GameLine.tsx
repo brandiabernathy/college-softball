@@ -10,7 +10,7 @@ export default function Game(props: SingleGame) {
             </div>
             {props.game.status.type.description != 'Scheduled' && <span className={"w-5 text-center font-semibold " + (props.game.status.type.completed && !props.game.away.winner ? 'text-slate-400' : '')}>{props.game.away.score}</span>}
             {props.game.status.type.description == 'Scheduled' && <span>&nbsp;</span>}
-            <span className="w-14 text-center">
+            <span className="w-16 text-center">
                 {props.game.status.type.description != 'Scheduled' && props.game.status.type.shortDetail}
                 {props.game.status.type.description == 'Scheduled' && props.game.time}
             </span>

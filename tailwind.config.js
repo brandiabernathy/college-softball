@@ -12,10 +12,10 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        'game': '1fr 20px 58px 20px 1fr',
+        'game': '1fr 20px 65px 20px 1fr',
       },
       maxWidth: {
-        '8xl': '90rem',
+        '8xl': '92rem',
       },
       colors: {
         'royal-blue': '#0060a8',
