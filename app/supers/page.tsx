@@ -26,7 +26,7 @@ export default function Supers() {
 					home_rank: game.competitions[0].competitors[0].curatedRank,
 					away_rank: game.competitions[0].competitors[1].curatedRank,
 					description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
-					broadcast: game.competitions[0].broadcasts[0].names.join("/"),
+					broadcast: game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/"): '',
 					venue: game.competitions[0].venue.id,
 					location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
 				})));
@@ -44,10 +44,10 @@ export default function Supers() {
 		<>
 			<div className="mb-5 text-xl">
 				<span onClick={() => filterGames('')} className={"cursor-pointer " + (selectedDate == '' ? 'underline text-royal-blue' : '')}>All</span> |&nbsp;
-				<span onClick={() => filterGames('20230525')} className={"cursor-pointer " + (selectedDate == '20230525' ? 'underline text-royal-blue' : '')}>Thursday</span> |&nbsp;
-				<span onClick={() => filterGames('20230526')} className={"cursor-pointer " + (selectedDate == '20230526' ? 'underline text-royal-blue' : '')}>Friday</span> |&nbsp;
-				<span onClick={() => filterGames('20230527')} className={"cursor-pointer " + (selectedDate == '20230527' ? 'underline text-royal-blue' : '')}>Saturday</span> |&nbsp;
-				<span onClick={() => filterGames('20230528')} className={"cursor-pointer " + (selectedDate == '20230528' ? 'underline text-royal-blue' : '')}>Sunday</span>
+				<span onClick={() => filterGames('20240523')} className={"cursor-pointer " + (selectedDate == '20240523' ? 'underline text-royal-blue' : '')}>Thursday</span> |&nbsp;
+				<span onClick={() => filterGames('20240524')} className={"cursor-pointer " + (selectedDate == '20240524' ? 'underline text-royal-blue' : '')}>Friday</span> |&nbsp;
+				<span onClick={() => filterGames('20240525')} className={"cursor-pointer " + (selectedDate == '20240525' ? 'underline text-royal-blue' : '')}>Saturday</span> |&nbsp;
+				<span onClick={() => filterGames('20240526')} className={"cursor-pointer " + (selectedDate == '20240526' ? 'underline text-royal-blue' : '')}>Sunday</span>
 			</div>
 
 			{selectedDate &&
@@ -56,15 +56,14 @@ export default function Supers() {
 
 			{!selectedDate &&
 				<div className="grid min-[730px]:grid-cols-2 min-[1410px]:grid-cols-4 gap-3">
-					<p className="text-xl">No games scheduled yet</p>
-					{/* <Box venue="4990" games={games} name="Norman"/>
-					<Box venue="6519" games={games} name="Durham"/>
-					<Box venue="4991" games={games} name="Tuscaloosa"/>
+					<Box venue="6207" games={games} name="Austin"/>
+					<Box venue="4990" games={games} name="Norman"/>
 					<Box venue="5000" games={games} name="Knoxville"/>
-					<Box venue="4999" games={games} name="Tallahassee"/>
 					<Box venue="6206" games={games} name="Stillwater"/>
-					<Box venue="5262" games={games} name="Seattle"/>
-					<Box venue="5399" games={games} name="Salt Lake City"/> */}
+					<Box venue="4989" games={games} name="Gainesville"/>
+					<Box venue="4993" games={games} name="Los Angeles"/>
+					<Box venue="6753" games={games} name="Columbia"/>
+					<Box venue="6670" games={games} name="Stanford"/>
 				</div>
 			}
 		</>
