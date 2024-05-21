@@ -18,7 +18,7 @@ export default function VenueBox(props: Games) {
 			<div className="text-xl text-center mb-2">
 				{props.name &&
 					<Link href={pathname + "/" + props.name.toLowerCase().replaceAll(' ', '-')}>
-						{props.name}
+						<span className="capitalize">{props.name.replace("-", ' ')}</span>
 					</Link>
 				}
 				</div>

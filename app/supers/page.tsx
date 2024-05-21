@@ -11,29 +11,59 @@ export default function Supers() {
 	const [games, setGames] = useState([]);
 	const [dayGames, setDayGames] = useState([]);
 	const [selectedDate, setSelectedDate] = useState('');
+	const [venueBoxes, setVenueBoxes] = useState([]);
+
+	const currentYear = dayjs().year();
 
 	useEffect(() => {
+		// fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=${currentYear}0501-${currentYear}0630`)
 		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240523-20240526')
-			.then((res) => res.json())
+		.then((res) => res.json())
 			.then((data) => {
-				setGames(data.events.map((game: any) => ({
-					id: game.id,
-					date: dayjs(game.date).format('YYYYMMDD'),
-					time: dayjs(game.date).format('ha dd'),
-					status: game.status,
-					home: game.competitions[0].competitors[0],
-					away: game.competitions[0].competitors[1],
-					home_rank: game.competitions[0].competitors[0].curatedRank,
-					away_rank: game.competitions[0].competitors[1].curatedRank,
-					description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
-					broadcast: game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/"): '',
-					venue: game.competitions[0].venue.id,
-					location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
-				})));
+				console.log("data.events", data.events);
+				setGames(data.events
+					// .filter((game: any) => game.season.type == '4) // not all games are correctly identified as supers
+					// .sort((a: any, b: any) => a.date < b.date ? -1 : 1)
+					.map((game: any) => ({
+						id: game.id,
+						date: dayjs(game.date).format('YYYYMMDD'),
+						time: dayjs(game.date).format('ha dd'),
+						status: game.status,
+						home: game.competitions[0].competitors[0],
+						away: game.competitions[0].competitors[1],
+						home_rank: game.competitions[0].competitors[0].curatedRank,
+						away_rank: game.competitions[0].competitors[1].curatedRank,
+						description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
+						broadcast: game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/"): '',
+						venue: game.competitions[0].venue.id,
+						location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
+					}))
+				);
 			});
 	}, []);
 
-	console.log('suers games', games);
+	useEffect(() => {
+		console.log('supers', games);
+		// find all locations
+		let venues = games
+			.map((item) => ({
+				location: item.location,
+				id: item.venue,
+				home_rank: item.home_rank
+			}))
+			.filter(
+				(obj, index) =>
+				games.findIndex((item) => item.location === obj.location) === index
+			)
+
+		let boxes = venues
+		.sort((a: any, b: any) => a.home_rank.current - b.home_rank.current)
+		.map((venue: any)=> {
+			return <Box key={venue.id} venue={venue.id} games={games} name={venue.location}/>
+		});
+
+		setVenueBoxes(boxes);
+	},[games]);
 
 	function filterGames(date: string) {
 		setSelectedDate (date);
@@ -56,14 +86,7 @@ export default function Supers() {
 
 			{!selectedDate &&
 				<div className="grid min-[730px]:grid-cols-2 min-[1410px]:grid-cols-4 gap-3">
-					<Box venue="6207" games={games} name="Austin"/>
-					<Box venue="4990" games={games} name="Norman"/>
-					<Box venue="5000" games={games} name="Knoxville"/>
-					<Box venue="6206" games={games} name="Stillwater"/>
-					<Box venue="4989" games={games} name="Gainesville"/>
-					<Box venue="4993" games={games} name="Los Angeles"/>
-					<Box venue="6753" games={games} name="Columbia"/>
-					<Box venue="6670" games={games} name="Stanford"/>
+					{venueBoxes}
 				</div>
 			}
 		</>
