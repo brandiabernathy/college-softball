@@ -15,9 +15,7 @@ export interface SingleGame {
                 logo: string,
                 shortDisplayName: string,
             },
-            curatedRank: {
-                current: number,
-            }
+            curatedRank: number,
         },
         away: {
             score: number,
@@ -27,9 +25,7 @@ export interface SingleGame {
                 logo: string,
                 shortDisplayName: string,
             },
-            curatedRank: {
-                current: number,
-            }
+            curatedRank: number,
         },
         status: {
             type: {

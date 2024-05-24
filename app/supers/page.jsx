@@ -29,8 +29,8 @@ export default function Supers() {
 						status: game.status,
 						home: game.competitions[0].competitors[0],
 						away: game.competitions[0].competitors[1],
-						home_rank: game.competitions[0].competitors[0].curatedRank,
-						away_rank: game.competitions[0].competitors[1].curatedRank,
+						home_rank: game.competitions[0].competitors[0].curatedRank ? game.competitions[0].competitors[0].curatedRank.current : 99,
+						away_rank: game.competitions[0].competitors[1].curatedRank ? game.competitions[0].competitors[1].curatedRank.current : 99,
 						description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
 						broadcast: game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/"): '',
 						venue: game.competitions[0].venue.id,
@@ -54,7 +54,7 @@ export default function Supers() {
 			)
 
 		let boxes = venues
-			.sort((a, b) => a.home_rank.current - b.home_rank.current)
+			.sort((a, b) => a.home_rank - b.home_rank)
 			.map((venue)=> {
 				return <Box key={venue.id} venue={venue.id} games={games} name={venue.location}/>
 			});
