@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import Box from '../../components/VenueBox';
 
-var utc = require('dayjs/plugin/utc')
-dayjs.extend(utc)
+var utc = require('dayjs/plugin/utc');
+dayjs.extend(utc);
 
 export default function Supers() {
 	const [games, setGames] = useState([]);
@@ -16,18 +16,16 @@ export default function Supers() {
 	const currentYear = dayjs().year();
 
 	useEffect(() => {
-		// fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=${currentYear}0501-${currentYear}0630`)
-		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240523-20240526')
+		fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=${currentYear}0501-${currentYear}0630`)
 		.then((res) => res.json())
 			.then((data) => {
-				console.log("data.events", data.events);
 				setGames(data.events
-					// .filter((game: any) => game.season.type == '4) // not all games are correctly identified as supers
-					// .sort((a: any, b: any) => a.date < b.date ? -1 : 1)
-					.map((game: any) => ({
+					.filter((game) => game.season.type == '4')
+					.sort((a, b) => a.date < b.date ? -1 : 1)
+					.map((game) => ({
 						id: game.id,
 						date: dayjs(game.date).format('YYYYMMDD'),
-						time: dayjs(game.date).format('ha dd'),
+						time: dayjs(game.date).format('h:mmA'),
 						status: game.status,
 						home: game.competitions[0].competitors[0],
 						away: game.competitions[0].competitors[1],
@@ -43,7 +41,6 @@ export default function Supers() {
 	}, []);
 
 	useEffect(() => {
-		console.log('supers', games);
 		// find all locations
 		let venues = games
 			.map((item) => ({
@@ -57,15 +54,15 @@ export default function Supers() {
 			)
 
 		let boxes = venues
-		.sort((a: any, b: any) => a.home_rank.current - b.home_rank.current)
-		.map((venue: any)=> {
-			return <Box key={venue.id} venue={venue.id} games={games} name={venue.location}/>
-		});
+			.sort((a, b) => a.home_rank.current - b.home_rank.current)
+			.map((venue)=> {
+				return <Box key={venue.id} venue={venue.id} games={games} name={venue.location}/>
+			});
 
 		setVenueBoxes(boxes);
 	},[games]);
 
-	function filterGames(date: string) {
+	function filterGames(date) {
 		setSelectedDate (date);
 		setDayGames(games.filter(game => game['date'] == date));
 	}
