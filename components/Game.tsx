@@ -24,7 +24,7 @@ export default function Game(props: SingleGame) {
                                 className="mr-2"
                             /> }
                             { !props.game.away.team.logo && <div className="w-[25px] mr-2"></div>}
-                            {props.game.away_rank && <span className="text-xl mr-2 text-slate-400">{props.game.away.curatedRank.current}</span>}
+                            {props.game.away.curatedRank && <span className="text-xl mr-2 text-slate-400">{props.game.away.curatedRank.current}</span>}
                             <span className={"text-xl " + (props.game.status.type.completed && !props.game.away.winner ? 'text-slate-400' : '')}>{props.game.away.team.location}</span>
                         </div>
                         {props.game.status.type.description != 'Scheduled' && <span className={"text-xl " + (props.game.status.type.completed && !props.game.away.winner ? 'text-slate-400' : '')}>{props.game.away.score}</span>}
@@ -40,7 +40,7 @@ export default function Game(props: SingleGame) {
                                 className="mr-2"
                             /> }
                             { !props.game.home.team.logo && <div className="w-[25px] mr-2"></div>}
-                            {props.game.home_rank && <span className="text-xl mr-2 text-slate-400">{props.game.home.curatedRank.current}</span>}
+                            {props.game.home.curatedRank && <span className="text-xl mr-2 text-slate-400">{props.game.home.curatedRank.current}</span>}
                             <span className={"text-xl " + (props.game.status.type.completed && !props.game.home.winner ? 'text-slate-400' : '')}>{props.game.home.team.location}</span>
                         </div>
                         {props.game.status.type.description != 'Scheduled' && <span className={"text-xl " + (props.game.status.type.completed && !props.game.home.winner ? 'text-slate-400' : '')}>{props.game.home.score}</span>}

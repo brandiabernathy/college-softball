@@ -22,8 +22,6 @@ export default function Home() {
 							status: game.status,
 							home: game.competitions[0].competitors[0],
 							away: game.competitions[0].competitors[1],
-							home_rank: game.competitions[0].competitors[0].curatedRank,
-							away_rank: game.competitions[0].competitors[1].curatedRank,
 							description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1).trim(),
 							broadcast:  game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/") : 'TBD',
 							venue: game.competitions[0].venue.id,
