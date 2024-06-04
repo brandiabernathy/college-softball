@@ -7,7 +7,7 @@ var utc = require('dayjs/plugin/utc')
 dayjs.extend(utc);
 
 export default function Home() {
-	const [games, setGames] = useState([]);
+	const [games, setGames] = useState<any[]>([]);
 
 	useEffect(() => {
 		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240530-20240607')
