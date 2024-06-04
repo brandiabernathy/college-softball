@@ -24,7 +24,7 @@ export default function Home() {
 							away: game.competitions[0].competitors[1],
 							home_rank: game.competitions[0].competitors[0].curatedRank,
 							away_rank: game.competitions[0].competitors[1].curatedRank,
-							description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1),
+							description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1).trim(),
 							broadcast:  game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/") : 'TBD',
 							venue: game.competitions[0].venue.id,
 							location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
@@ -58,15 +58,6 @@ export default function Home() {
 							<div className="font-bold">Elimination Bracket</div>
 							<div className="w-full relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
 								{ games[4] && <Game key="4" game={games[4]} /> }
-								{ !games[4] && <div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
-									<span className="font-semibold">6/2 - 7:00 PM EDT</span><span> - ESPN/ESPN+</span>
-									<div className="flex items-center justify-between my-1 relative">
-										<div className="h-7"></div>
-									</div>
-									<div className="flex items-center justify-between my-1 relative">
-										<div className="h-7"></div>
-									</div>
-								</div> }
 							</div>
 						</div>
 						<div className="flex flex-wrap gap-8 w-1/3">
@@ -74,41 +65,21 @@ export default function Home() {
 
 							<div className="w-full relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
 								{ games[6] && <Game key="6" game={games[6]} /> }
-								{ !games[6] && <div className="h-fit w-full bg-white p-4 rounded text-base">
-									<span className="font-semibold">6/3 - 3:00 PM EDT</span><span> - ABC/ESPN+</span>
-									<div className="flex items-center justify-between my-1 relative">
-										<div className="h-7"></div>
-									</div>
-									<div className="flex items-center justify-between my-1 relative">
-										<div className="h-7"></div>
-									</div>
-								</div> }
 							</div>
 
 							<div className="h-8"></div>
 							{ games[8] && <Game key="8" game={games[8]} />}
-							{ !games[8] && <div className="h-fit w-full bg-white p-4 rounded text-base">
-								<span className="font-semibold">6/4 - 3:00 PM EDT</span><span> - ABC/ESPN+</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-							</div> }
 						</div>
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div className="h-10"></div>
 							{ games[10] && <Game key="10" game={games[10]} /> }
-							{ !games[10] &&<div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-left-8 after:top-10 after:w-8 after:h-4 after:border-t-2">
-								<span className="font-semibold">6/5 - 12:00 PM EDT</span><span> - ESPN/ESPN+</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-							</div> }
+							{/* usually game 11 is the elimination game here but in 2024 a weather delay pushed the elimination game to game 12 */}
+							{ (games[11].description === 'Elimination Game' || games[12].description === 'Elimination Game') &&
+								<>
+									{ (games[11] && games[11].description === 'Elimination Game') && <Game key="11" game={games[11]} /> }
+									{ (games[12] && games[12].description === 'Elimination Game') && <Game key="12" game={games[12]} /> }
+								</>
+							}
 						</div>
 					</div>
 					<div className="flex gap-8 items-center">
@@ -129,56 +100,23 @@ export default function Home() {
 							<div className="font-bold">Elimination Bracket</div>
 							<div className="w-full relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
 								{ games[5] && <Game key="5" game={games[5]} /> }
-								{ !games[5] && <div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
-									<span className="font-semibold">6/2 - 9:30 PM EDT</span><span> - ESPN/ESPN+</span>
-									<div className="flex items-center justify-between my-1 relative">
-										<div className="h-7"></div>
-									</div>
-									<div className="flex items-center justify-between my-1 relative">
-										<div className="h-7"></div>
-									</div>
-								</div> }
 							</div>
 						</div>
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div className="h-4"></div>
 							<div className="w-full relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
 								{ games[7] && <Game key="7" game={games[7]} /> }
-								{ !games[7] && <div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
-									<span className="font-semibold">6/3 - 7:00 PM EDT</span><span> - ESPN/ESPN+</span>
-									<div className="flex items-center justify-between my-1 relative">
-										<div className="h-7"></div>
-									</div>
-									<div className="flex items-center justify-between my-1 relative">
-										<div className="h-7"></div>
-									</div>
-								</div> }
 							</div>
 
 							<div className="h-8"></div>
 							{ games[9] && <Game key="9" game={games[9]} /> }
-							{ !games[9] && <div className="h-fit w-full bg-white p-4 rounded text-base">
-								<span className="font-semibold">6/4 - 7:00 PM EDT</span><span> - ESPN2/ESPN+</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-							</div> }
 						</div>
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div className="h-10"></div>
-							{ games[11] && <Game key="11" game={games[11]} />}
-							{ !games[11] && <div className="h-fit w-full bg-white p-4 rounded text-base relative after:block after:absolute after:-left-8 after:top-10 after:w-8 after:h-4 after:border-t-2">
-								<span className="font-semibold">6/5 - 7:00 PM EDT</span><span> - ESPN/ESPN+</span>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-								<div className="flex items-center justify-between my-1 relative">
-									<div className="h-7"></div>
-								</div>
-							</div> }
+							{/* first bracket goes to elimination game? this will be game 12, otherwise it will be game 11 */}
+							{/* if game 11 is an elimination game, it's in the other bracket */}
+							{ (games[11] && games[11].description !== 'Elimination Game') && <Game key="11" game={games[11]} />}
+
 						</div>
 					</div>
 				</div>
@@ -186,57 +124,9 @@ export default function Home() {
 
 				<div className="flex flex-wrap gap-8 h-fit">
 					<div className="h-fit text-xl">FINALS</div>
-					{ games[12] && <Game key="12" game={games[12]} /> }
-					{ !games[12] && <div className="h-fit w-full bg-white p-4 rounded text-base">
-						<span className="font-semibold">6/7 - 8:00 PM EDT</span><span> - ESPN</span>
-						<div className="flex items-center justify-between my-1 relative">
-							<div className="h-7"></div>
-						</div>
-						<div className="flex items-center justify-between my-1 relative">
-							<div className="h-7"></div>
-						</div>
-					</div> }
+					{ (games[12] && games[12].description !== 'Elimination Game') && <Game key="12" game={games[12]} /> }
 					{ games[13] && <Game key="13" game={games[13]} /> }
-					{ !games[13] && <div className="h-fit w-full bg-white p-4 rounded text-base">
-						<span className="font-semibold">6/8 - 7:30 PM EDT</span><span> - ESPN</span>
-						<div className="flex items-center justify-between my-1 relative">
-							<div className="h-7"></div>
-						</div>
-						<div className="flex items-center justify-between my-1 relative">
-							<div className="h-7"></div>
-						</div>
-					</div> }
 					{ games[14] && <Game key="14" game={games[14]} /> }
-					{ !games[14] && <div className="h-fit w-full bg-white p-4 rounded text-base">
-						<span className="font-semibold">6/9 - 8:00 PM EDT</span><span> - ESPN</span>
-						<div className="flex items-center justify-between my-1 relative">
-							<div className="flex">
-								<Image
-									src="https://a.espncdn.com/i/teamlogos/ncaa/500/52.png"
-									alt="Florida State"
-									width={25}
-									height={25}
-									className="mr-2"
-								/>
-								<span className="text-xl mr-2 text-slate-400">3</span>
-								<span className="text-xl">Florida State</span>
-							</div>
-						</div>
-						<div className="flex items-center justify-between my-1 relative">
-							<div className="flex">
-								<Image
-									src="https://a.espncdn.com/i/teamlogos/ncaa/500/201.png"
-									alt="Oklahoma"
-									width={25}
-									height={25}
-									className="mr-2"
-								/>
-								<span className="text-xl mr-2 text-slate-400">1</span>
-								<span className="text-xl">Oklahoma</span>
-							</div>
-						</div>
-						<div className="text-slate-400">If Necessary</div>
-					</div> }
 				</div>
 			</div> }
 		</div>
