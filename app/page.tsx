@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Game from '../components/Game';
 import dayjs from 'dayjs';
@@ -8,15 +7,33 @@ dayjs.extend(utc);
 
 export default function Home() {
 	const [games, setGames] = useState<any[]>([]);
+	const [ champGames, setChampGames ] = useState<any[]>([]);
+
+	const currentYear = dayjs().year();
 
 	useEffect(() => {
-		fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=20240530-20240607')
+		fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=${currentYear}0529-${currentYear}0630`)
 			.then((res) => res.json())
 			.then((data) => {
 				if(data.events) {
+					console.log('data.events', data.events);
 					setGames(data.events
 						.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
-						.filter((game: any) => game.status.type.detail != 'Postponed')
+						.filter((game: any) => game.season.type === 5 && game.status.type.detail != 'Postponed')
+						.map((game: any) => ({
+							id: game.id,
+							status: game.status,
+							home: game.competitions[0].competitors[0],
+							away: game.competitions[0].competitors[1],
+							description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1).trim(),
+							broadcast:  game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/") : 'TBD',
+							venue: game.competitions[0].venue.id,
+							location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
+						})));
+
+					setChampGames(data.events
+						.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
+						.filter((game: any) => game.season.type === 6 && game.status.type.detail != 'Postponed')
 						.map((game: any) => ({
 							id: game.id,
 							status: game.status,
@@ -30,7 +47,6 @@ export default function Home() {
 				}
 		 	});
 	}, []);
-
 
 	return (
 		<div className="overflow-x-scroll">
@@ -122,9 +138,9 @@ export default function Home() {
 
 				<div className="flex flex-wrap gap-8 h-fit">
 					<div className="h-fit text-xl">FINALS</div>
-					{ (games[12] && games[12].description !== 'Elimination Game') && <Game key="12" game={games[12]} /> }
-					{ games[13] && <Game key="13" game={games[13]} /> }
-					{ games[14] && <Game key="14" game={games[14]} /> }
+					{ champGames[1] && <Game key="champ-1" game={champGames[1]} /> }
+					{ champGames[2] && <Game key="champ-2" game={champGames[2]} /> }
+					{ champGames[3] && <Game key="champ-3" game={champGames[3]} /> }
 				</div>
 			</div> }
 		</div>
