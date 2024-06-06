@@ -1,13 +1,14 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Game from '../components/Game';
-import { useAppContext } from '../context/app';
+import { Games } from '../types/index';
 import dayjs from 'dayjs';
 var utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 
 export default function Home() {
-	const { games, setGames, year, setYear } = useAppContext();
+	const [ games, setGames ] = useState<Games[]>([]);
+	const [ year, setYear ] = useState<number>(0);
 
 	const [ worldSeriesGames, setWorldSeriesGames] = useState<any[]>([]);
 	const [ champGames, setChampGames ] = useState<any[]>([]);
