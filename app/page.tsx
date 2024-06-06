@@ -42,6 +42,7 @@ export default function Home() {
 	}, [year]);
 
 	useEffect(() => {
+		console.log("games", games);
 		setWorldSeriesGames(games.filter((game: any) => game.season.type === 5));
 		setChampGames(games.filter((game: any) => game.season.type === 6));
 	}, [games])
@@ -136,9 +137,9 @@ export default function Home() {
 
 				<div className="flex flex-wrap gap-8 h-fit">
 					<div className="h-fit text-xl">FINALS</div>
-					{ champGames[1] && <Game key="champ-1" game={champGames[1]} /> }
-					{ champGames[2] && <Game key="champ-2" game={champGames[2]} /> }
-					{ champGames[3] && <Game key="champ-3" game={champGames[3]} /> }
+					{ champGames[0] && <Game key="champ-1" game={champGames[0]} /> }
+					{ champGames[1] && <Game key="champ-2" game={champGames[1]} /> }
+					{ champGames[2] && <Game key="champ-3" game={champGames[2]} /> }
 				</div>
 			</div> }
 		</div>
