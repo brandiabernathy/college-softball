@@ -43,10 +43,13 @@ export default function Home() {
 	}, [year]);
 
 	useEffect(() => {
-		console.log("games", games);
 		setWorldSeriesGames(games.filter((game: any) => game.season.type === 5));
 		setChampGames(games.filter((game: any) => game.season.type === 6));
 	}, [games])
+
+	useEffect(() => {
+		console.log("world series", worldSeriesGames);
+	}, [worldSeriesGames])
 
 	return (
 		<div className="overflow-x-scroll">
@@ -87,13 +90,11 @@ export default function Home() {
 						<div className="flex flex-wrap gap-8 w-1/3">
 							<div className="h-10"></div>
 							{ worldSeriesGames[10] && <Game key="10" game={worldSeriesGames[10]} /> }
-							{/* usually game 11 is the elimination game here but in 2024 a weather delay pushed the elimination game to game 12 */}
-							{ (worldSeriesGames[11].description === 'Elimination Game' || worldSeriesGames[12].description === 'Elimination Game') &&
-								<>
-									{ (worldSeriesGames[11] && worldSeriesGames[11].description === 'Elimination Game') && <Game key="11" game={worldSeriesGames[11]} /> }
-									{ (worldSeriesGames[12] && worldSeriesGames[12].description === 'Elimination Game') && <Game key="12" game={worldSeriesGames[12]} /> }
-								</>
-							}
+							{/* ESPN changes the description after the game ends, before the game it includes "Elimination Game" and after it inclues which team advances */}
+							{/* usually game 11 is the if necessary elimination game here but in 2024 a weather delay pushed the elimination game to game 12 */}
+							{/* figure out which of the teams that advances was listed in the 10th game */}
+								{/* { (worldSeriesGames[11] && (worldSeriesGames[11].description[0].headline.includes('Elimination Game') || worldSeriesGames[11].description[0].headline.includes('advances'))) &&<Game key="11" game={worldSeriesGames[11]} /> } */}
+								{ (worldSeriesGames[12] && (worldSeriesGames[12].description[0].headline.includes('Elimination Game') || worldSeriesGames[12].description[0].headline.includes('advances'))) && <Game key="12" game={worldSeriesGames[12]} /> }
 						</div>
 					</div>
 					<div className="flex gap-8 items-center">
