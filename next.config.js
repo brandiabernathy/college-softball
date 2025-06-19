@@ -6,7 +6,6 @@ const nextConfig = {
             protocol: 'https',
             hostname: 'a.espncdn.com',
             port: '',
-            pathname: '/i/teamlogos/ncaa/500/**',
           },
         ],
       },
