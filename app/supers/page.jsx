@@ -12,6 +12,7 @@ export default function Supers() {
 	const [dayGames, setDayGames] = useState([]);
 	const [selectedDate, setSelectedDate] = useState('');
 	const [venueBoxes, setVenueBoxes] = useState([]);
+	const [superDates, setSuperDates] = useState();
 
 	const currentYear = dayjs().year();
 
@@ -41,6 +42,8 @@ export default function Supers() {
 	}, []);
 
 	useEffect(() => {
+		setSuperDates([...new Set(games.map(game => game.date))]);
+
 		// find all locations
 		let venues = games
 			.map((item) => ({
@@ -70,11 +73,15 @@ export default function Supers() {
 	return (
 		<>
 			<div className="mb-5 text-xl">
-				<span onClick={() => filterGames('')} className={"cursor-pointer " + (selectedDate == '' ? 'underline text-royal-blue' : '')}>All</span> |&nbsp;
-				<span onClick={() => filterGames('20240523')} className={"cursor-pointer " + (selectedDate == '20240523' ? 'underline text-royal-blue' : '')}>Thursday</span> |&nbsp;
-				<span onClick={() => filterGames('20240524')} className={"cursor-pointer " + (selectedDate == '20240524' ? 'underline text-royal-blue' : '')}>Friday</span> |&nbsp;
-				<span onClick={() => filterGames('20240525')} className={"cursor-pointer " + (selectedDate == '20240525' ? 'underline text-royal-blue' : '')}>Saturday</span> |&nbsp;
-				<span onClick={() => filterGames('20240526')} className={"cursor-pointer " + (selectedDate == '20240526' ? 'underline text-royal-blue' : '')}>Sunday</span>
+				<span onClick={() => filterGames('')} className={"cursor-pointer " + (selectedDate == '' ? 'underline text-royal-blue' : '')}>All</span>
+				{ superDates && superDates.map(date => {
+					return (
+						<>
+							&nbsp;|&nbsp;
+							<span onClick={() => filterGames(date)} className={"cursor-pointer " + (selectedDate == date ? 'underline text-royal-blue' : '')}>{dayjs(date).format('dddd')}</span>
+						</>
+					)
+				})}
 			</div>
 
 			{selectedDate &&
