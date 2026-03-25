@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/core": "^8.3.18",
+    "@mantine/hooks": "^8.3.18",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -21,5 +23,10 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "typescript": "^6.0.2"
+  },
+  "devDependencies": {
+    "postcss": "^8.5.8",
+    "postcss-preset-mantine": "^1.18.0",
+    "postcss-simple-vars": "^7.0.1"
   }
 }
