@@ -1,19 +1,12 @@
-import Image from 'next/image';
+'use client';
+
+import { Flex, Image, Text } from '@mantine/core';
 
 export default function Footer() {
-
 	return (
-		<footer className="bg-royal-blue py-24">
-			<div className="container max-w-8xl py-5 text-white flex justify-center">
-				Powered by
-				<Image
-					src="/espn-logo.svg"
-					alt="ESPN"
-					width={50}
-					height={25}
-					className="ml-2"
-				/>
-            </div>
-		</footer>
+		<Flex component="footer" align="center" justify="center" direction="column" bg="blue" h={200}>
+			<Text c="white">Powered by</Text>
+			<Image src="/espn-logo.svg" alt="ESPN" w={50} />
+		</Flex>
 	)
 }

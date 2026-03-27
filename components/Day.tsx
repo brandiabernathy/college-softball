@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import Game from './Game';
 import { usePathname } from 'next/navigation';
 import { Games } from '../types';

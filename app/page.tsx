@@ -7,14 +7,14 @@ var utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 
 export default function Home() {
-	const [ games, setGames ] = useState<Games[]>([]);
-	const [ year, setYear ] = useState<number>(0);
-
-	const [ worldSeriesGames, setWorldSeriesGames] = useState<any[]>([]);
-	const [ champGames, setChampGames ] = useState<any[]>([]);
+	const [games, setGames] = useState<Games[]>([]);
+	const [year, setYear] = useState<number>(0);
+	const [worldSeriesGames, setWorldSeriesGames] = useState<any[]>([]);
+	const [champGames, setChampGames] = useState<any[]>([]);
 
 	useEffect(() => {
-		setYear(dayjs().year());
+		// setYear(dayjs().year());
+		setYear(2025);
 	}, [])
 
 	useEffect(() => {

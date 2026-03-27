@@ -1,4 +1,36 @@
 
+export interface Game {
+  id: number;
+	time?: string;
+	home_rank: number;
+  away_rank: number;
+	home: Team;
+	away: Team;
+	status: {
+		type: {
+			completed: boolean;
+			description: string;
+			shortDetail: string;
+		}
+	}
+	broadcast: string;
+	venue: number;
+	location: string;
+}
+
+export interface Team {
+	score: number;
+	winner: boolean;
+	team: {
+		location: string;
+		logo: string;
+		shortDisplayName: string;
+	},
+	curatedRank: {
+		current: number;
+	}
+}
+
 export interface SingleGame {
     pathname?: string,
     description?: string,
@@ -45,11 +77,11 @@ export interface SingleGame {
 }
 
 export interface Games {
-    games: object[],
-    venue?: string,
-    name?: string,
+    games: Game[],
+    venue?: string;
+    name?: string;
 }
 
 export interface Bracket {
-    venue: string,
+    venue: string;
 }
