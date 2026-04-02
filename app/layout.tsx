@@ -1,7 +1,6 @@
 import '@mantine/core/styles.css';
-import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
-import { Provider as ReduxProvider } from 'react-redux';
-import { store } from './store';
+import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
+import { Providers } from './Providers';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -21,13 +20,11 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <ReduxProvider store={store}>
-          <MantineProvider>
-			      <Header />
-			      {children}
-			      <Footer />
-		      </MantineProvider>
-        </ReduxProvider>
+        <Providers>
+			    <Header />
+			    {children}
+			    <Footer />
+        </Providers>
       </body>
     </html>
   );

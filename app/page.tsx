@@ -1,55 +1,70 @@
 'use client';
+
 import { useState, useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from './store';
 import Game from '../components/Game';
 import { Games } from '../types/index';
+import { setYear, setGames } from './store/appSlice';
 import dayjs from 'dayjs';
 var utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 
 export default function Home() {
-	const [games, setGames] = useState<Games[]>([]);
-	const [year, setYear] = useState<number>(0);
+	const dispatch = useAppDispatch();
+	const { games, year } = useAppSelector(state => state.app);
+	// const [games, setGames] = useState<Games[]>([]);
+	// const [year, setYear] = useState<number>(0);
 	const [worldSeriesGames, setWorldSeriesGames] = useState<any[]>([]);
 	const [champGames, setChampGames] = useState<any[]>([]);
 
 	useEffect(() => {
 		// setYear(dayjs().year());
-		setYear(2025);
-	}, [])
+		// setYear(2025);
+		dispatch(setYear(2025));
+	}, []);
+
 
 	useEffect(() => {
-		fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=${year}0501-${year}0615`)
+		const getGames = () => {
+			fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=${year}0501-${year}0615`)
 			.then((res) => res.json())
 			.then((data) => {
 				if(data.events) {
 					console.log('data.events', data.events);
-					setGames(data.events
+					dispatch(setGames(data.events
 						.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
-						.filter((game: any) => game.status.type.detail != 'Postponed')
+						// .filter((game: any) => game.status.type.detail !== 'Postponed' && game.status !== 2)
+						.filter((game: any) => game.season.type !== 2)
 						.map((game: any) => ({
 							id: game.id,
+							date: dayjs(game.date).format('YYYYMMDD'),
 							status: game.status,
 							home: game.competitions[0].competitors[0],
 							away: game.competitions[0].competitors[1],
 							description: game.competitions[0].notes,
 							// description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1).trim() : '',
 							broadcast:  game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/") : 'TBD',
-							venue: game.competitions[0].venue.id,
-							location: game.competitions[0].venue.address.city.replace(/\s+/g, '-').toLowerCase(),
+							venue: game.competitions[0].venue,
 							season: game.season
-						})));
+						}))));
 				}
 		 	});
+		}
+
+		if (year > 0) {
+			getGames();
+		}
+		console.log('year', year)
 	}, [year]);
 
-	useEffect(() => {
-		setWorldSeriesGames(games.filter((game: any) => game.season.type === 5));
-		setChampGames(games.filter((game: any) => game.season.type === 6));
-	}, [games])
+	// useEffect(() => {
+	// 	setWorldSeriesGames(games.filter((game: any) => game.season.type === 5));
+	// 	setChampGames(games.filter((game: any) => game.season.type === 6));
+	// }, [games])
 
-	useEffect(() => {
-		console.log("world series", worldSeriesGames);
-	}, [worldSeriesGames])
+	// useEffect(() => {
+	// 	console.log("world series", worldSeriesGames);
+	// }, [worldSeriesGames])
 
 	return (
 		<div className="overflow-x-scroll">

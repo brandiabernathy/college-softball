@@ -8,7 +8,7 @@ export type AppState = {
 
 const initialState: AppState = {
   games: [],
-  year: 2020,
+  year: 0,
 };
 
 export const appSlice = createSlice({
@@ -16,6 +16,7 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     setGames: (state, action) => {
+      console.log('set games', action.payload)
       state.games = action.payload;
     },
     setYear: (state, action) => {
@@ -24,5 +25,5 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setGames } = appSlice.actions;
+export const { setGames, setYear } = appSlice.actions;
 export default appSlice.reducer;
