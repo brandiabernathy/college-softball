@@ -5,10 +5,18 @@ export interface Game {
     away: Competitor;
     broadcast: string;
     date: string;
+    time: string;
     venue: Venue;
     season: {
         slug: string;
         type: number;
+    }
+    status: {
+        type: {
+            description: string;
+            shortDetail: string;
+            completed: boolean;
+        }
     }
 }
 
@@ -17,6 +25,9 @@ export interface Competitor {
     score: number;
     winner: boolean;
     team: Team;
+    curatedRank?: {
+        current: number;
+    }
 }
 
 export interface Team {

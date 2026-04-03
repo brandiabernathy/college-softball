@@ -4,9 +4,10 @@ import { use } from 'react';
 import Bracket from '../../../components/RegionalsBracket';
 
 
-export default function Regional({ params }: { params: Promise<{ venueId: string }> }) {
-  const { venueId } = use(params);
+export default function Regional({ params }: { params: Promise<{ venue: number }> }) {
+  const { venue } = use(params);
+
   return (
-    <Bracket venue={venueId} />
+    <Bracket venue={venue} />
   )
 }

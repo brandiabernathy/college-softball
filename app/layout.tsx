@@ -1,5 +1,5 @@
 import '@mantine/core/styles.css';
-import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
+import { ColorSchemeScript, mantineHtmlProps, Box, Container } from '@mantine/core';
 import { Providers } from './Providers';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -22,7 +22,11 @@ export default function RootLayout({
       <body>
         <Providers>
 			    <Header />
-			    {children}
+          <Box bg="gray.1">
+            <Container size={1480}>
+              {children}
+            </Container>
+          </Box>
 			    <Footer />
         </Providers>
       </body>

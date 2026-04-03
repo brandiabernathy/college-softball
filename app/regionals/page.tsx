@@ -31,16 +31,17 @@ export default function Regionals() {
 			// find all locations
 		let venues = regionalGames
 			.map((item) => ({
-				location: item.location,
+				location: item.venue.address.city,
 				id: item.venue,
-				home_rank: item.home_rank
+				home_rank: item.home.curatedRank?.current || 99
 			}))
 			.sort((a, b) => a.home_rank > b.home_rank ? 1 : -1)
 			.filter((v,i,a)=>a.findIndex(v2=>(v.location === v2.location))===i);
 
+			console.log("venues", venues);
 		let boxes = venues
-			.map((venue)=> {
-				return <Box key={venue.id} venue={venue.id} games={games} name={venue.location}/>
+			.map((venue, index)=> {
+				return <Box key={index} venue={venue.id} games={games} name={venue.location}/>
 			});
 
 		setVenueBoxes(boxes);
@@ -78,27 +79,27 @@ export default function Regionals() {
 		<>
 		{regionalDates && regionalDates.map(date => {
 				return (
-					<>
+					<div key={date}>
 						&nbsp;|&nbsp;
 						<span onClick={() => filterGames(date)} className={"cursor-pointer " + (selectedDate == date ? '' : '')}>{dayjs(date).format('dddd')}</span>
-					</>
+					</div>
 				)
 			})}
 			<div className="mb-5 text-xl">
 				<span onClick={() => filterGames('')} className={"cursor-pointer " + (selectedDate == '' ? 'underline text-royal-blue' : '')}>All</span>
-				{ regionalDates && regionalDates.map(date => {
+				{regionalDates && regionalDates.map(date => {
 					return (
-						<>
+						<div key={date}>
 							&nbsp;|&nbsp;
 							<span onClick={() => filterGames(date)} className={"cursor-pointer " + (selectedDate == date ? 'underline text-royal-blue' : '')}>{dayjs(date).format('dddd')}</span>
-						</>
+						</div>
 					)
 				})}
 			</div>
 
-			{selectedDate &&
+			{/* {selectedDate &&
 				<Day games={dayGames} />
-			}
+			} */}
 
 			{!selectedDate &&
 				<div className="grid min-[730px]:grid-cols-2 min-[1410px]:grid-cols-4 gap-3">

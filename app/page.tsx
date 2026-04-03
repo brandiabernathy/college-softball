@@ -20,7 +20,7 @@ export default function Home() {
 	useEffect(() => {
 		// setYear(dayjs().year());
 		// setYear(2025);
-		dispatch(setYear(2025));
+		dispatch(setYear(2024));
 	}, []);
 
 
@@ -38,6 +38,7 @@ export default function Home() {
 						.map((game: any) => ({
 							id: game.id,
 							date: dayjs(game.date).format('YYYYMMDD'),
+							time: dayjs(game.date).format('h:mmA'),
 							status: game.status,
 							home: game.competitions[0].competitors[0],
 							away: game.competitions[0].competitors[1],
@@ -45,7 +46,7 @@ export default function Home() {
 							// description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1).trim() : '',
 							broadcast:  game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/") : 'TBD',
 							venue: game.competitions[0].venue,
-							season: game.season
+							season: game.season ?? 0
 						}))));
 				}
 		 	});
