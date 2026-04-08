@@ -1,8 +1,11 @@
 import '@mantine/core/styles.css';
 import { ColorSchemeScript, mantineHtmlProps, Box, Container } from '@mantine/core';
 import { Providers } from './Providers';
+import { Barlow_Condensed } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+
+const barlow_condensed = Barlow_Condensed({ subsets: ['latin'], weight: ['400', '600'] });
 
 export const metadata = {
 	title: 'NCAA Softball Tournament',

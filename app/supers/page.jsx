@@ -3,6 +3,7 @@ import Day from '../../components/Day';
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import Box from '../../components/VenueBox';
+import { Button, Flex, Grid, Text } from '@mantine/core';
 
 var utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
@@ -14,7 +15,8 @@ export default function Supers() {
 	const [venueBoxes, setVenueBoxes] = useState([]);
 	const [superDates, setSuperDates] = useState();
 
-	const currentYear = dayjs().year();
+	// const currentYear = dayjs().year();
+	const currentYear = 2025;
 
 	useEffect(() => {
 		fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=1000&dates=${currentYear}0501-${currentYear}0630`)
@@ -59,7 +61,7 @@ export default function Supers() {
 		let boxes = venues
 			.sort((a, b) => a.home_rank - b.home_rank)
 			.map((venue)=> {
-				return <Box key={venue.id} venue={venue.id} games={games} name={venue.location}/>
+				return <Grid.Col key={venue.id} span={3}><Box venue={venue.id} games={games} name={venue.location}/></Grid.Col>
 			});
 
 		setVenueBoxes(boxes);
@@ -72,26 +74,24 @@ export default function Supers() {
 
 	return (
 		<>
-			<div className="mb-5 text-xl">
-				<span onClick={() => filterGames('')} className={"cursor-pointer " + (selectedDate == '' ? 'underline text-royal-blue' : '')}>All</span>
-				{ superDates && superDates.map(date => {
+			<Flex>
+				<Button variant="transparent" onClick={() => filterGames('')}>All</Button>
+				{superDates && superDates.map(date => {
 					return (
-						<>
-							&nbsp;|&nbsp;
-							<span onClick={() => filterGames(date)} className={"cursor-pointer " + (selectedDate == date ? 'underline text-royal-blue' : '')}>{dayjs(date).format('dddd')}</span>
-						</>
+						<Flex key={date} align="center">
+							<Text>|</Text>
+							<Button variant="transparent" onClick={() => filterGames(date)} className={"cursor-pointer " + (selectedDate == date ? 'underline text-royal-blue' : '')}>{dayjs(date).format('dddd')}</Button>
+						</Flex>
 					)
 				})}
-			</div>
+			</Flex>
 
 			{selectedDate &&
 				<Day games={dayGames} />
 			}
 
 			{!selectedDate &&
-				<div className="grid min-[730px]:grid-cols-2 min-[1410px]:grid-cols-4 gap-3">
-					{venueBoxes}
-				</div>
+				<Grid>{venueBoxes}</Grid>
 			}
 		</>
 	)

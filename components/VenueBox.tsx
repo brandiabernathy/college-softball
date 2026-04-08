@@ -18,14 +18,15 @@ export default function VenueBox({ games, name, venue }: VenueBoxProps) {
 	let events = games
 		.filter((game: any) => game.venue == venue)
 		.map((game: any)=> {
+			console.log("game", game)
 			return <Game key={game.id} game={game}/>
 	});
 
 	return (
-		<Paper shadow="xs" withBorder>
+		<Paper withBorder p="sm">
 			{name &&
 				<Link href={pathname + "/" + venue.id}>
-					<Text>{name.replace("-", ' ')}</Text>
+					<Text tt="uppercase" size="lg" ta="center" fw="bold">{name.replace("-", ' ')}</Text>
 				</Link>
 			}
 			{events}

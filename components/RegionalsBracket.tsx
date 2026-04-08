@@ -2,6 +2,7 @@
 import Game from './Game';
 import { Bracket } from '../types';
 import { useState, useEffect } from 'react';
+import { Flex } from '@mantine/core';
 
 export default function Day(props: Bracket) {
 	const [games, setGames] = useState(null);
@@ -30,24 +31,26 @@ export default function Day(props: Bracket) {
 	}, []);
 
 	return (
-		<section>
-			{games && <div className="flex flex-col lg:flex-row gap-8 items-center">
-				<div className="flex flex-wrap gap-8 lg:w-1/4">
-					<Game key="0" game={games[0]} description="Opening Round"/>
-					<Game key="1" game={games[1]} description="Opening Round"/>
-					<Game key="3" game={games[3]} description="Elimination Game"/>
-				</div>
-				<div className="flex flex-wrap gap-8 lg:w-1/4 h-fit">
-					<Game key="2" game={games[2]} description="Winner's Bracket"/>
-					<Game key="4" game={games[4]} description="Elimination Game"/>
-				</div>
-				<div className="flex lg:w-1/4 h-fit w-full">
-					{games[5] && <Game key="5" game={games[5]} description="Regional Final"/>}
-				</div>
-				<div className="flex lg:w-1/4 h-fit w-full">
-					{games[6] && <Game key="6" game={games[6]} description="Regional Final - If Necessary"/>}
-				</div>
-			</div>}
-		</section>
+		<>
+			{games && 
+				<Flex align="center" gap="lg">
+					<Flex w="25%" direction="column" gap="lg">
+						<Game key="0" game={games[0]} description="Opening Round"/>
+						<Game key="1" game={games[1]} description="Opening Round"/>
+						<Game key="3" game={games[3]} description="Elimination Game"/>
+					</Flex>
+
+					<Flex w="25%" direction="column" gap="lg">
+						<Game key="2" game={games[2]} description="Winner's Bracket"/>
+						<Game key="4" game={games[4]} description="Elimination Game"/>
+					</Flex>
+					
+					<Flex w="25%" direction="column" gap="lg">
+						{games[5] && <Game key="5" game={games[5]} description="Regional Final"/>}
+						{games[6] && <Game key="6" game={games[6]} description="Regional Final - If Necessary"/>}
+					</Flex>
+				</Flex>
+			}
+		</>
 	)
 }

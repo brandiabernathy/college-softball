@@ -2,7 +2,7 @@
 import Game from './Game';
 import { Bracket } from '../types';
 import { useState, useEffect } from 'react';
-
+import { Flex } from '@mantine/core';
 
 export default function Day(props: Bracket) {
 	const [games, setGames] = useState(null);
@@ -32,11 +32,21 @@ export default function Day(props: Bracket) {
 
 	return (
 		<section>
-			{games && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-				<Game key="0" game={games[0]} description="Game 1"/>
-				<Game key="1" game={games[1]} description="Game 2"/>
-				{games[2] && <div className="w-full"> <Game key="2" game={games[2]} description="Game 3 - If Necessary"/></div>}
-			</div>}
+			{games &&
+				<Flex align="center" gap="lg">
+					<Flex w="25%">
+						<Game key="0" game={games[0]} description="Game 1"/>
+					</Flex>
+					
+					<Flex w="25%">
+						<Game key="1" game={games[1]} description="Game 2"/>
+					</Flex>
+					
+					<Flex w="25%">
+						{games[2] && <div className="w-full"> <Game key="2" game={games[2]} description="Game 3 - If Necessary"/></div>}
+					</Flex>
+				</Flex>
+			}
 		</section>
 	)
 }

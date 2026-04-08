@@ -4,10 +4,10 @@ const appTheme = (colorScheme: 'light' | 'dark'): MantineThemeOverride =>
   createTheme({
     // @ts-expect-error Mantine types missing colorScheme in theme override
     colorScheme,
-    primaryColor: 'brand',
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'Barlow Condensed, sans-serif',
+    fontWeight: 400,
     headings: {
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Barlow Condensed, sans-serif',
     },
     breakpoints: {
       xs: '30em',
