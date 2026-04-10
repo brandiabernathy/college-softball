@@ -15,6 +15,8 @@ type VenueBoxProps = {
 export default function VenueBox({ games, name, venue }: VenueBoxProps) {
 	const pathname = usePathname();
 
+	console.log('venue', venue);
+
 	let events = games
 		.filter((game: any) => game.venue == venue)
 		.map((game: any)=> {
@@ -25,7 +27,7 @@ export default function VenueBox({ games, name, venue }: VenueBoxProps) {
 	return (
 		<Paper withBorder p="sm">
 			{name &&
-				<Link href={pathname + "/" + venue.id}>
+				<Link href={pathname + "/" + venue}>
 					<Text tt="uppercase" size="lg" ta="center" fw="bold">{name.replace("-", ' ')}</Text>
 				</Link>
 			}

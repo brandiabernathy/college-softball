@@ -1,13 +1,15 @@
 import { createTheme, MantineThemeOverride } from '@mantine/core';
+import { Barlow_Condensed } from 'next/font/google';
+
+const barlow_condensed = Barlow_Condensed({ subsets: ['latin'], weight: ['400', '500', '600', '700'] });
 
 const appTheme = (colorScheme: 'light' | 'dark'): MantineThemeOverride =>
   createTheme({
     // @ts-expect-error Mantine types missing colorScheme in theme override
     colorScheme,
-    fontFamily: 'Barlow Condensed, sans-serif',
-    fontWeight: 400,
+    fontFamily: barlow_condensed.style.fontFamily,
     headings: {
-      fontFamily: 'Barlow Condensed, sans-serif',
+      fontFamily: barlow_condensed.style.fontFamily,
     },
     breakpoints: {
       xs: '30em',
@@ -28,6 +30,11 @@ const appTheme = (colorScheme: 'light' | 'dark'): MantineThemeOverride =>
           size: 'lg',
         },
       },
+      Button: {
+        defaultProps: {
+          size: 'lg',
+        }
+      }
     },
   });
 

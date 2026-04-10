@@ -7,6 +7,7 @@ export interface Game {
     date: string;
     time: string;
     venue: Venue;
+    description: string;
     season: {
         slug: string;
         type: number;
