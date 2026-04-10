@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" {...mantineHtmlProps}>
+    <html lang="en" {...mantineHtmlProps} className={barlow_condensed.className}>
       <head>
         <ColorSchemeScript />
       </head>
@@ -26,7 +26,7 @@ export default function RootLayout({
         <Providers>
 			    <Header />
           <Box bg="gray.1">
-            <Container size={1480}>
+            <Container size={1480} py="xl">
               {children}
             </Container>
           </Box>

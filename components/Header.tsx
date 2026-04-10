@@ -2,15 +2,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { Anchor, Box, Container, Flex, Image, Title, Tabs } from '@mantine/core';
+import { Anchor, Box, Container, Flex, Image, Title } from '@mantine/core';
 
 export default function Header() {
-  const router = useRouter();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
 	return (
-    <Container size={1480}>
+    <Container size={1480} py="lg">
       <Flex component="header" align="center" bg="white" justify="space-between">
           <Flex align="center">
             <Anchor component={Link} href="/">
@@ -20,16 +19,12 @@ export default function Header() {
                   w={70}
               />
             </Anchor>
-            <Title>NCAA College Softball Tournament</Title>
+            <Title fw={300}>NCAA College Softball Tournament</Title>
           </Flex>
 
-          <Flex component="nav">
-            <Tabs value={pathname as string} onChange={value => router.push(`${value}`)}>
-              <Tabs.List>
-                <Tabs.Tab value="/regionals">Regionals</Tabs.Tab>
-                <Tabs.Tab value="/supers">Super Regionals</Tabs.Tab>
-              </Tabs.List>
-            </Tabs>
+          <Flex component="nav" gap="lg">
+            <Anchor component={Link} href="/regionals" c={pathname == '/regionals' ? 'blue' : 'gray.7'} size="xl">Regionals</Anchor>
+            <Anchor component={Link} href="/supers" c={pathname == '/supers' ? 'blue' : 'gray.7'} size="xl">Super Regionals</Anchor>
           </Flex>
       </Flex>
     </Container>

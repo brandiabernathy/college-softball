@@ -23,6 +23,11 @@ const appTheme = (colorScheme: 'light' | 'dark'): MantineThemeOverride =>
     colors: {
     },
     components: {
+      Text: {
+        defaultProps: {
+          size: 'lg',
+        },
+      },
     },
   });
 
