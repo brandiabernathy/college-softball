@@ -69,6 +69,7 @@ export default function Supers() {
 
 	function filterGames(date) {
 		setSelectedDate (date);
+		console.log("super day games", games.filter(game => game['date'] == date));
 		setDayGames(games.filter(game => game['date'] == date));
 	}
 

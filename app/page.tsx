@@ -33,8 +33,7 @@ export default function Home() {
 					console.log('data.events', data.events);
 					dispatch(setGames(data.events
 						.sort((a: any, b: any) => a.date < b.date ? -1 : 1)
-						// .filter((game: any) => game.status.type.detail !== 'Postponed' && game.status !== 2)
-						.filter((game: any) => game.season.type !== 2)
+						.filter((game: any) => game.status.type.detail !== 'Postponed' && game.season.type !== 2)
 						.map((game: any) => ({
 							id: game.id,
 							date: dayjs(game.date).format('YYYYMMDD'),
@@ -55,7 +54,7 @@ export default function Home() {
 		if (year > 0) {
 			getGames();
 		}
-		console.log('year', year)
+		// console.log('year', year)
 	}, [year]);
 
 	// useEffect(() => {
