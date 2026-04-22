@@ -1,9 +1,9 @@
 'use client'
 
-import { useAppSelector } from '../store';
 import { useState, useEffect } from 'react';
-import dayjs from 'dayjs';
+import { useAppSelector } from '../store';
 import { Button, Flex, Grid, Text } from '@mantine/core';
+import dayjs from 'dayjs';
 import Day from '../../components/Day';
 import Box from '../../components/VenueBox';
 
@@ -29,25 +29,24 @@ export default function Supers() {
 			console.log('supers games', supersGames);
 
 			// find all locations
-			let venues = supersGames
-				.map((item) => ({
-					location: item.venue.address.city,
-					id: item.venue.id,
-					address: {
-						city: item.venue.address.city,
-						state: item.venue.address.state
-					},
-					home_rank: item.home.curatedRank || 99
-				}))
-				.filter(
-					(obj, index) =>
-					games.findIndex((item) => item.location === obj.location) === index
-				)
+			let venues = supersGames.map((item) => ({
+				location: item.venue.address.city,
+				id: item.venue.id,
+				address: {
+					city: item.venue.address.city,
+					state: item.venue.address.state
+				},
+				home_rank: item.home.curatedRank || 99
+			}))
+			// filter to only find unique locations
+			.filter((obj, index, self) => 
+  			index === self.findIndex((v) => v.id === obj.id)
+			);
 
 			let boxes = venues
 				.sort((a, b) => a.home_rank - b.home_rank)
 				.map((venue)=> {
-					return <Grid.Col key={venue.id} span={3}><Box venue={venue.id} games={games} name={venue.location}/></Grid.Col>
+					return <Grid.Col key={venue.id} span={3}><Box venue={venue.id} games={supersGames} name={venue.location}/></Grid.Col>
 				});
 
 			setVenueBoxes(boxes);
@@ -55,8 +54,8 @@ export default function Supers() {
 	},[supersGames]);
 
 	function filterGames(date) {
-		setSelectedDate (date);
-		console.log("super day games", games.filter(game => game['date'] == date));
+		setSelectedDate(date);
+		// console.log("super day games", games.filter(game => game['date'] == date));
 		setDayGames(supersGames.filter(game => game['date'] == date));
 	}
 

@@ -58,7 +58,7 @@ export default function Regionals() {
 		console.log("date", date);
 		setSelectedDate(date);
 		console.log("day gaaaames", regionalGames.filter(game => game.date == date))
-		setDayGames(regionalGames.filter(game => game['date'] == date));
+		// setDayGames(regionalGames.filter(game => game['date'] == date));
 		// setDayGames(games.filter(game => game['date'] == date));
 	}
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Game from './GameLine';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -14,13 +15,11 @@ type VenueBoxProps = {
 
 export default function VenueBox({ games, name, venue }: VenueBoxProps) {
 	const pathname = usePathname();
-
-	let events = games
-		.filter((game: any) => game.venue.id == venue.id)
-		.map((game: any)=> {
-			// console.log("game", game)
-			return <Game key={game.id} game={game}/>
-	});
+	const [venueGames, setVenueGames] = useState<GameType[]>([]);
+	
+	useEffect(() => {
+		setVenueGames(games.filter((game: any) => game.venue.id == venue));
+	}, [games]);
 
 	return (
 		<Paper withBorder p="sm">
@@ -29,7 +28,9 @@ export default function VenueBox({ games, name, venue }: VenueBoxProps) {
 					<Text tt="uppercase" size="lg" ta="center" fw="bold">{name.replace("-", ' ')}</Text>
 				// </Link>
 			}
-			{events}
+			{venueGames && venueGames.map((game: GameType)=> {
+				return <Game key={game.id} game={game}/>
+			})}
 		</Paper>
 	)
 }
