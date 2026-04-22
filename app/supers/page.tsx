@@ -11,24 +11,24 @@ import { Game, Venue } from '@/types';
 var utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 
-export default function Regionals() {
+export default function Supers() {
   const { games } = useAppSelector(state => state.app);
-  const [regionalsGames, setRegionalsGames] = useState<Game[]>([]);
+  const [supersGames, setSupersGames] = useState<Game[]>([]);
   const [dayGames, setDayGames] = useState<Game[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>('');
-  const [regionalsDates, setRegionalsDates] = useState<string[]>([]);
-  const [regionalsVenues, setRegionalVenues] = useState<Venue[]>([]);
+  const [supersDates, setSupersDates] = useState<string[]>([]);
+  const [supersVenues, setSupersVenues] = useState<Venue[]>([]);
 
   useEffect(() => {
-    setRegionalsGames(games.filter(game => game.season.type === 3));
+    setSupersGames(games.filter(game => game.season.type === 4));
   }, [games]);
 
   useEffect(() => {
-    if (regionalsGames && regionalsGames?.length > 0) {
-      setRegionalsDates([...new Set(regionalsGames.map(game => game.date))]);
+    if (supersGames && supersGames?.length > 0) {
+      setSupersDates([...new Set(supersGames.map(game => game.date))]);
 
       // find all locations
-      let venues = regionalsGames.map((item) => ({
+      let venues = supersGames.map((item) => ({
         location: item.venue.address.city,
         id: item.venue.id,
         address: {
@@ -42,21 +42,20 @@ export default function Regionals() {
         index === self.findIndex((v) => v.id === obj.id)
       );
 
-      setRegionalVenues(venues);
-
+      setSupersVenues(venues);
     }
-  },[regionalsGames]);
+  },[supersGames]);
 
   function filterGames(date: string) {
     setSelectedDate(date);
-    setDayGames(regionalsGames.filter(game => game['date'] == date));
+    setDayGames(supersGames.filter(game => game['date'] == date));
   }
 
   return (
     <>
       <Flex>
         <Button variant="transparent" onClick={() => filterGames('')}>All</Button>
-        {regionalsDates && regionalsDates.map((date: string) => {
+        {supersDates && supersDates.map(date => {
           return (
             <Flex key={date} align="center">
               <Text>|</Text>
@@ -70,10 +69,10 @@ export default function Regionals() {
         <Day games={dayGames} />
       }
 
-      {!selectedDate && regionalsVenues &&
+      {!selectedDate && supersVenues &&
         <Grid>
-          {regionalsVenues.map((venue)=> {
-            return <Grid.Col key={venue.id} span={3}><Box venue={venue} games={regionalsGames} name={venue.address.city}/></Grid.Col>
+          {supersVenues.map((venue)=> {
+            return <Grid.Col key={venue.id} span={3}><Box venue={venue} games={supersGames} name={venue.address.city}/></Grid.Col>
           })}
         </Grid>
       }
