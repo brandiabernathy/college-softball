@@ -20,7 +20,7 @@ export default function Home() {
 	useEffect(() => {
 		// setYear(dayjs().year());
 		// setYear(2025);
-		dispatch(setYear(2024));
+		dispatch(setYear(2025));
 	}, []);
 
 
@@ -41,8 +41,7 @@ export default function Home() {
 							status: game.status,
 							home: game.competitions[0].competitors[0],
 							away: game.competitions[0].competitors[1],
-							description: game.competitions[0].notes,
-							// description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1).trim() : '',
+							description: game.competitions[0].notes[0].headline.substring(game.competitions[0].notes[0].headline.indexOf("-") + 1).trim() ?? '',
 							broadcast:  game.competitions[0].broadcasts.length ? game.competitions[0].broadcasts[0].names.join("/") : 'TBD',
 							venue: game.competitions[0].venue,
 							season: game.season ?? 0
@@ -57,10 +56,11 @@ export default function Home() {
 		// console.log('year', year)
 	}, [year]);
 
-	// useEffect(() => {
-	// 	setWorldSeriesGames(games.filter((game: any) => game.season.type === 5));
-	// 	setChampGames(games.filter((game: any) => game.season.type === 6));
-	// }, [games])
+	useEffect(() => {
+		console.log("gwwwames", games.filter((game: any) => game.season.type === 5));
+		setWorldSeriesGames(games.filter((game: any) => game.season.type === 5));
+		setChampGames(games.filter((game: any) => game.season.type === 6));
+	}, [games])
 
 	// useEffect(() => {
 	// 	console.log("world series", worldSeriesGames);

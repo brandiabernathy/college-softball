@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../store';
 import { Game } from '@/types';
-import Day from '../../components/Day';
-import Box from '../../components/VenueBox';
 import dayjs from 'dayjs';
 import { Button, Flex, Grid, Text } from '@mantine/core';
+import Day from '../../components/Day';
+import Box from '../../components/VenueBox';
 
 var utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
@@ -58,7 +58,7 @@ export default function Regionals() {
 		console.log("date", date);
 		setSelectedDate(date);
 		console.log("day gaaaames", regionalGames.filter(game => game.date == date))
-		// setDayGames(regionalGames.filter(game => game['date'] == date));
+		setDayGames(regionalGames.filter(game => game['date'] == date));
 		// setDayGames(games.filter(game => game['date'] == date));
 	}
 
