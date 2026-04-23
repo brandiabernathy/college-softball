@@ -4,9 +4,10 @@ import { Box, Flex, Paper, Stack, Text } from '@mantine/core';
 
 type GameProps = {
   game: GameType;
+  description?: string;
 }
 
-export default function Game({ game }: GameProps) {
+export default function Game({ game, description }: GameProps) {
 
 	return (
     <Paper p="md" w="100%">
@@ -92,7 +93,7 @@ export default function Game({ game }: GameProps) {
         </Flex>
 
         <Flex>
-          <Text size="md">{game.description}</Text>
+          <Text size="md">{description ? description : game.description}</Text>
         </Flex>
       </Stack>
     </Paper>

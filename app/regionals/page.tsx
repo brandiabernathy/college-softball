@@ -45,6 +45,7 @@ export default function Regionals() {
       setRegionalVenues(venues);
 
     }
+    console.log("regionals games", regionalsGames);
   },[regionalsGames]);
 
   function filterGames(date: string) {

@@ -19,6 +19,7 @@ export default function VenueBox({ games, name, venue }: VenueBoxProps) {
 	
 	useEffect(() => {
 		setVenueGames(games.filter((game: any) => game.venue.id == venue.id));
+		console.log('venue games', games.filter((game: any) => game.venue.id == venue.id));
 	}, [games]);
 
 	return (
