@@ -16,7 +16,7 @@ export default function Day({ games }: DayProps) {
 	}, [games])
 
 	return (
-		<Grid mt="lg" gutter="xl">
+		<Grid mt="lg">
 			{games ?
 				games.map(game => {
 					return <Grid.Col key={game.id} span={3}><Game game={game} /></Grid.Col>
