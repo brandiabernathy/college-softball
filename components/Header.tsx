@@ -1,10 +1,12 @@
 'use client';
 import { useState } from 'react';
+import { useAppSelector } from '@/app/store';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { Anchor, Box, Container, Flex, Image, Title } from '@mantine/core';
 
 export default function Header() {
+  const { year } = useAppSelector(state => state.app);
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 

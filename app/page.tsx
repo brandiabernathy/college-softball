@@ -6,6 +6,7 @@ import Game from '../components/Game';
 import { Games } from '../types/index';
 import { setYear, setGames } from './store/appSlice';
 import dayjs from 'dayjs';
+import { Anchor, Box, Container, Grid, Flex, Image, Stack, Text, Title } from '@mantine/core';
 var utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 
@@ -67,98 +68,112 @@ export default function Home() {
 	// }, [worldSeriesGames])
 
 	return (
-		<div className="overflow-x-scroll">
-			<h2 className="text-3xl mb-8">Women&apos;s College World Series</h2>
-			{ worldSeriesGames.length == 0 && <p className="text-xl">Bracket will appear closer to May 30</p> }
-			{ worldSeriesGames.length > 0 && <div className="grid grid-cols-4 gap-8 min-w-[1000px]">
-				<div className="col-span-3">
-					<div className="flex gap-8 items-center mb-10">
-						<div className="flex flex-wrap gap-8 w-1/3">
-							<div>Bracket 1 <br />
-								<span className="font-bold">Winner&apos;s Bracket</span>
-							</div>
+		<Stack>
+			<Title order={2} fw={300}>Women&apos;s College World Series</Title>
+			{worldSeriesGames.length === 0 && <Text>Bracket will appear closer to tournament time</Text>}
 
-							<div className="relative w-full after:block after:absolute after:bottom-10 after:-right-24 after:w-24 after:h-10 after:border-t-2 after:border-r-2">
-								<Game key="1" game={worldSeriesGames[1]} />
-							</div>
-							<div className="relative w-full after:block after:absolute after:top-12 after:-right-24 after:w-24 after:h-10 after:border-b-2 after:border-r-2">
-								<Game key="0" game={worldSeriesGames[0]} />
-							</div>
+			{worldSeriesGames.length > 0 &&
+				<Grid>
+					<Grid.Col span={3}><Game key="1" game={worldSeriesGames[1]} /></Grid.Col>
+					<Grid.Col span={3}><Game key="0" game={worldSeriesGames[0]} /></Grid.Col>
 
-							<div className="h-4 w-full"></div>
+					{ worldSeriesGames[4] && <Grid.Col span={3}><Game key="4" game={worldSeriesGames[4]} /></Grid.Col> }
+					{ worldSeriesGames[6] && <Grid.Col span={3}><Game key="6" game={worldSeriesGames[6]} /></Grid.Col> }
+				</Grid>
+			}
+		</Stack>
+		// <div className="overflow-x-scroll">
+		// 	<h2 className="text-3xl mb-8">Women&apos;s College World Series</h2>
+		// 	{ worldSeriesGames.length == 0 && <p className="text-xl">Bracket will appear closer to May 30</p> }
+		// 	{ worldSeriesGames.length > 0 && <div className="grid grid-cols-4 gap-8 min-w-[1000px]">
+		// 		<div className="col-span-3">
+		// 			<div className="flex gap-8 items-center mb-10">
+		// 				<div className="flex flex-wrap gap-8 w-1/3">
+		// 					<div>Bracket 1 <br />
+		// 						<span className="font-bold">Winner&apos;s Bracket</span>
+		// 					</div>
 
-							<div className="font-bold">Elimination Bracket</div>
-							<div className="w-full relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
-								{ worldSeriesGames[4] && <Game key="4" game={worldSeriesGames[4]} /> }
-							</div>
-						</div>
-						<div className="flex flex-wrap gap-8 w-1/3">
-							<div className="h-4"></div>
+		// 					<div className="relative w-full after:block after:absolute after:bottom-10 after:-right-24 after:w-24 after:h-10 after:border-t-2 after:border-r-2">
+		// 						<Game key="1" game={worldSeriesGames[1]} />
+		// 					</div>
+		// 					<div className="relative w-full after:block after:absolute after:top-12 after:-right-24 after:w-24 after:h-10 after:border-b-2 after:border-r-2">
+		// 						<Game key="0" game={worldSeriesGames[0]} />
+		// 					</div>
 
-							<div className="w-full relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
-								{ worldSeriesGames[6] && <Game key="6" game={worldSeriesGames[6]} /> }
-							</div>
+		// 					<div className="h-4 w-full"></div>
 
-							<div className="h-8"></div>
-							{ worldSeriesGames[8] && <Game key="8" game={worldSeriesGames[8]} />}
-						</div>
-						<div className="flex flex-wrap gap-8 w-1/3">
-							<div className="h-10"></div>
-							{ worldSeriesGames[10] && <Game key="10" game={worldSeriesGames[10]} /> }
-							{/* ESPN changes the description after the game ends, before the game it includes "Elimination Game" and after it inclues which team advances */}
-							{/* usually game 11 is the if necessary elimination game here but in 2024 a weather delay pushed the elimination game to game 12 */}
-							{/* figure out which of the teams that advances was listed in the 10th game */}
-								{/* { (worldSeriesGames[11] && (worldSeriesGames[11].description[0].headline.includes('Elimination Game') || worldSeriesGames[11].description[0].headline.includes('advances'))) &&<Game key="11" game={worldSeriesGames[11]} /> } */}
-								{ (worldSeriesGames[12] && (worldSeriesGames[12].description[0].headline.includes('Elimination Game') || worldSeriesGames[12].description[0].headline.includes('advances'))) && <Game key="12" game={worldSeriesGames[12]} /> }
-						</div>
-					</div>
-					<div className="flex gap-8 items-center">
-						<div className="flex flex-wrap gap-8 w-1/3">
-							<div>Bracket 2 <br />
-								<span className="font-bold">Winner&apos;s Bracket</span>
-							</div>
+		// 					<div className="font-bold">Elimination Bracket</div>
+		// 					<div className="w-full relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
+		// 						{ worldSeriesGames[4] && <Game key="4" game={worldSeriesGames[4]} /> }
+		// 					</div>
+		// 				</div>
+		// 				<div className="flex flex-wrap gap-8 w-1/3">
+		// 					<div className="h-4"></div>
 
-							<div className="relative w-full after:block after:absolute after:bottom-10 after:-right-24 after:w-24 after:h-10 after:border-t-2 after:border-r-2">
-								<Game key="2" game={worldSeriesGames[2]} />
-							</div>
-							<div className="relative w-full after:block after:absolute after:top-14 after:-right-24 after:w-24 after:h-10 after:border-b-2 after:border-r-2">
-								<Game key="3" game={worldSeriesGames[3]} />
-							</div>
+		// 					<div className="w-full relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
+		// 						{ worldSeriesGames[6] && <Game key="6" game={worldSeriesGames[6]} /> }
+		// 					</div>
 
-							<div className="h-4 w-full"></div>
+		// 					<div className="h-8"></div>
+		// 					{ worldSeriesGames[8] && <Game key="8" game={worldSeriesGames[8]} />}
+		// 				</div>
+		// 				<div className="flex flex-wrap gap-8 w-1/3">
+		// 					<div className="h-10"></div>
+		// 					{ worldSeriesGames[10] && <Game key="10" game={worldSeriesGames[10]} /> }
+		// 					{/* ESPN changes the description after the game ends, before the game it includes "Elimination Game" and after it inclues which team advances */}
+		// 					{/* usually game 11 is the if necessary elimination game here but in 2024 a weather delay pushed the elimination game to game 12 */}
+		// 					{/* figure out which of the teams that advances was listed in the 10th game */}
+		// 						{/* { (worldSeriesGames[11] && (worldSeriesGames[11].description[0].headline.includes('Elimination Game') || worldSeriesGames[11].description[0].headline.includes('advances'))) &&<Game key="11" game={worldSeriesGames[11]} /> } */}
+		// 						{ (worldSeriesGames[12] && (worldSeriesGames[12].description[0].headline.includes('Elimination Game') || worldSeriesGames[12].description[0].headline.includes('advances'))) && <Game key="12" game={worldSeriesGames[12]} /> }
+		// 				</div>
+		// 			</div>
+		// 			<div className="flex gap-8 items-center">
+		// 				<div className="flex flex-wrap gap-8 w-1/3">
+		// 					<div>Bracket 2 <br />
+		// 						<span className="font-bold">Winner&apos;s Bracket</span>
+		// 					</div>
 
-							<div className="font-bold">Elimination Bracket</div>
-							<div className="w-full relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
-								{ worldSeriesGames[5] && <Game key="5" game={worldSeriesGames[5]} /> }
-							</div>
-						</div>
-						<div className="flex flex-wrap gap-8 w-1/3">
-							<div className="h-4"></div>
-							<div className="w-full relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
-								{ worldSeriesGames[7] && <Game key="7" game={worldSeriesGames[7]} /> }
-							</div>
+		// 					<div className="relative w-full after:block after:absolute after:bottom-10 after:-right-24 after:w-24 after:h-10 after:border-t-2 after:border-r-2">
+		// 						<Game key="2" game={worldSeriesGames[2]} />
+		// 					</div>
+		// 					<div className="relative w-full after:block after:absolute after:top-14 after:-right-24 after:w-24 after:h-10 after:border-b-2 after:border-r-2">
+		// 						<Game key="3" game={worldSeriesGames[3]} />
+		// 					</div>
 
-							<div className="h-8"></div>
-							{ worldSeriesGames[9] && <Game key="9" game={worldSeriesGames[9]} /> }
-						</div>
-						<div className="flex flex-wrap gap-8 w-1/3">
-							<div className="h-10"></div>
-							{/* first bracket goes to elimination game? this will be game 12, otherwise it will be game 11 */}
-							{/* if game 11 is an elimination game, it's in the other bracket */}
-							{ (worldSeriesGames[11] && worldSeriesGames[11].description !== 'Elimination Game') && <Game key="11" game={worldSeriesGames[11]} />}
+		// 					<div className="h-4 w-full"></div>
 
-						</div>
-					</div>
-				</div>
+		// 					<div className="font-bold">Elimination Bracket</div>
+		// 					<div className="w-full relative after:block after:absolute after:top-3 after:-right-24 after:w-24 after:h-16 after:border-b-2 after:border-r-2">
+		// 						{ worldSeriesGames[5] && <Game key="5" game={worldSeriesGames[5]} /> }
+		// 					</div>
+		// 				</div>
+		// 				<div className="flex flex-wrap gap-8 w-1/3">
+		// 					<div className="h-4"></div>
+		// 					<div className="w-full relative after:block after:absolute after:-bottom-24 after:right-20 after:w-4 after:h-24 after:border-r-2">
+		// 						{ worldSeriesGames[7] && <Game key="7" game={worldSeriesGames[7]} /> }
+		// 					</div>
+
+		// 					<div className="h-8"></div>
+		// 					{ worldSeriesGames[9] && <Game key="9" game={worldSeriesGames[9]} /> }
+		// 				</div>
+		// 				<div className="flex flex-wrap gap-8 w-1/3">
+		// 					<div className="h-10"></div>
+		// 					{/* first bracket goes to elimination game? this will be game 12, otherwise it will be game 11 */}
+		// 					{/* if game 11 is an elimination game, it's in the other bracket */}
+		// 					{ (worldSeriesGames[11] && worldSeriesGames[11].description !== 'Elimination Game') && <Game key="11" game={worldSeriesGames[11]} />}
+
+		// 				</div>
+		// 			</div>
+		// 		</div>
 
 
-				<div className="flex flex-wrap gap-8 h-fit">
-					<div className="h-fit text-xl">FINALS</div>
-					{ champGames[0] && <Game key="champ-1" game={champGames[0]} /> }
-					{ champGames[1] && <Game key="champ-2" game={champGames[1]} /> }
-					{ champGames[2] && <Game key="champ-3" game={champGames[2]} /> }
-				</div>
-			</div> }
-		</div>
+		// 		<div className="flex flex-wrap gap-8 h-fit">
+		// 			<div className="h-fit text-xl">FINALS</div>
+		// 			{ champGames[0] && <Game key="champ-1" game={champGames[0]} /> }
+		// 			{ champGames[1] && <Game key="champ-2" game={champGames[1]} /> }
+		// 			{ champGames[2] && <Game key="champ-3" game={champGames[2]} /> }
+		// 		</div>
+		// 	</div> }
+		// </div>
 	)
 }

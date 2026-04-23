@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { Game as GameType } from '../types';
 import { Box, Flex, Paper, Stack, Text } from '@mantine/core';
+import { Game as GameType } from '../types';
 
 type GameProps = {
   game: GameType;
