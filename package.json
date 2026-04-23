@@ -32,6 +32,7 @@
   "devDependencies": {
     "postcss": "^8.5.10",
     "postcss-preset-mantine": "^1.18.0",
-    "postcss-simple-vars": "^7.0.1"
+    "postcss-simple-vars": "^7.0.1",
+    "prettier": "3.8.3"
   }
 }
