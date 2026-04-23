@@ -9,6 +9,12 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
   "dependencies": {
     "@mantine/core": "^9.1.0",
     "@mantine/hooks": "^9.1.0",
@@ -30,6 +36,8 @@
     "typescript": "^6.0.3"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "postcss": "^8.5.10",
     "postcss-preset-mantine": "^1.18.0",
     "postcss-simple-vars": "^7.0.1",
