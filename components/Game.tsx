@@ -14,7 +14,7 @@ export default function Game({ game, description }: GameProps) {
       <Stack gap="xxs">
         <Text size="md" fw="bold">
           {game.status.type.description == 'Scheduled' ?
-            <>{game.time ? game.time : game.status.type.shortDetail}</>
+            <>{game.time ? game.time : game.status.type.shortDetail} - {game.broadcast}</>
           :
             <>{game.status.type.shortDetail}</>
           }

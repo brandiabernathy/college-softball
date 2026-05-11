@@ -13,15 +13,12 @@ dayjs.extend(utc);
 export default function Home() {
 	const dispatch = useAppDispatch();
 	const { games, year } = useAppSelector(state => state.app);
-	// const [games, setGames] = useState<Games[]>([]);
-	// const [year, setYear] = useState<number>(0);
 	const [worldSeriesGames, setWorldSeriesGames] = useState<any[]>([]);
 	const [champGames, setChampGames] = useState<any[]>([]);
 
 	useEffect(() => {
-		// setYear(dayjs().year());
-		// setYear(2025);
-		dispatch(setYear(2025));
+		// dispatch(setYear(2024));
+		dispatch(setYear(dayjs().year()));
 	}, []);
 
 
@@ -74,11 +71,47 @@ export default function Home() {
 
 			{worldSeriesGames.length > 0 &&
 				<Grid>
-					<Grid.Col span={3}><Game key="1" game={worldSeriesGames[1]} /></Grid.Col>
-					<Grid.Col span={3}><Game key="0" game={worldSeriesGames[0]} /></Grid.Col>
+					<Grid.Col span={3}>
+						<Stack>
+							<Box>
+								<Text>Bracket 1</Text>
+								<Text fw={500}>Winner's Bracket</Text>
+							</Box>
+							<Game key="1" game={worldSeriesGames[1]} />
+							<Game key="0" game={worldSeriesGames[0]} />
+							<Text fw={500}>Elimination Bracket</Text>
+							<Game key="4" game={worldSeriesGames[4]} />
+						</Stack>
+						
+					</Grid.Col>
 
-					{ worldSeriesGames[4] && <Grid.Col span={3}><Game key="4" game={worldSeriesGames[4]} /></Grid.Col> }
-					{ worldSeriesGames[6] && <Grid.Col span={3}><Game key="6" game={worldSeriesGames[6]} /></Grid.Col> }
+					<Grid.Col span={3}>
+						<Stack>
+							<Game key="6" game={worldSeriesGames[6]} />
+						  <Game key="8" game={worldSeriesGames[8]} />
+						</Stack>
+					</Grid.Col>
+
+					<Grid.Col span={3}>
+						<Stack>
+							{ worldSeriesGames[10] && <Game key="10" game={worldSeriesGames[10]} /> }
+							{/* ESPN changes the description after the game ends, before the game it includes "Elimination Game" and after it inclues which team advances */}
+		 					{/* usually game 11 is the if necessary elimination game here but in 2024 a weather delay pushed the elimination game to game 12 */}
+							{/* figure out which of the teams that advances was listed in the 10th game */}
+		 						{/* { (worldSeriesGames[11] && (worldSeriesGames[11].description[0].headline.includes('Elimination Game') || worldSeriesGames[11].description[0].headline.includes('advances'))) &&<Game key="11" game={worldSeriesGames[11]} /> } */}
+		 						{/* { (worldSeriesGames[12] && (worldSeriesGames[12].description[0].headline.includes('Elimination Game') || worldSeriesGames[12].description[0].headline.includes('advances'))) && <Game key="12" game={worldSeriesGames[12]} /> } */}
+						</Stack>
+					</Grid.Col>
+
+					<Grid.Col span={3}>
+						<Stack>
+							<Text>FINALS</Text>
+							{champGames[0] && <Game key="champ-1" game={champGames[0]} />}
+				 			{champGames[1] && <Game key="champ-2" game={champGames[1]} />}
+							{champGames[2] && <Game key="champ-3" game={champGames[2]} />}
+						</Stack>
+					</Grid.Col>
+					
 				</Grid>
 			}
 		</Stack>
