@@ -17,7 +17,6 @@ export default function Home() {
 	const [champGames, setChampGames] = useState<any[]>([]);
 
 	useEffect(() => {
-		// dispatch(setYear(2024));
 		dispatch(setYear(dayjs().year()));
 	}, []);
 
@@ -67,7 +66,7 @@ export default function Home() {
 	return (
 		<Stack>
 			<Title order={2} fw={300}>Women&apos;s College World Series</Title>
-			{worldSeriesGames.length === 0 && <Text>Bracket will appear closer to tournament time</Text>}
+			{worldSeriesGames.length === 0 && <Text>Bracket will appear closer to tournament time when all the teams are set.</Text>}
 
 			{worldSeriesGames.length > 0 &&
 				<Grid>

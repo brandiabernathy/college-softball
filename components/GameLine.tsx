@@ -1,4 +1,3 @@
-
 import { Flex, Group, Text } from '@mantine/core';
 import { Game as GameType } from '../types';
 import { abbreviate } from '../utils';
@@ -13,7 +12,7 @@ export default function GameLine({ game }: GameLineProps) {
     <Group gap="xs" justify="center">
       <Flex justify="flex-end" w={120} c={game.status.type.completed && !game.away.winner ? 'dimmed' : ''}>
         {game.away.curatedRank && <Text>{game.away.curatedRank?.current}</Text>}&nbsp;
-        <Text>{abbreviate(game.away.team.shortDisplayName)}</Text>
+        <Text fw={500}>{abbreviate(game.away.team.shortDisplayName)}</Text>
       </Flex>
 
       {game.status.type.description !== 'Scheduled' && <Text w={15} ta="center">{game.away.score}</Text>}
@@ -24,7 +23,7 @@ export default function GameLine({ game }: GameLineProps) {
 
       <Flex w={120} c={game.status.type.completed && !game.home.winner ? 'dimmed' : ''}>
         {game.home.curatedRank && <Text>{game.home.curatedRank?.current}</Text>}&nbsp;
-        <Text>{abbreviate(game.home.team.shortDisplayName)}</Text>
+        <Text fw={500}>{abbreviate(game.home.team.shortDisplayName)}</Text>
       </Flex>
     </Group>
 	)

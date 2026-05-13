@@ -24,10 +24,6 @@ export default function Regionals() {
   }, [games]);
 
   useEffect(() => {
-    console.log('selected date', selectedDate);
-  }, [selectedDate])
-
-  useEffect(() => {
     if (regionalsGames && regionalsGames?.length > 0) {
       setRegionalsDates([...new Set(regionalsGames.map(game => game.date))]);
 

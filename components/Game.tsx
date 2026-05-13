@@ -22,16 +22,16 @@ export default function Game({ game, description }: GameProps) {
 
         <Flex align="center" justify="space-between">
           <Flex gap="xs" align="center">
-            <Image
+            {game.away.team.logo && <Image
               src={game.away.team.logo}
               alt={game.away.team.location}
               width={25}
               height={25}
               className="mr-2"
-            />
+            />}
             <Flex gap={0} c={(game.status.type.completed && !game.away.winner ? 'gray.6' : '')}>
               {game.away.curatedRank && <Text size="xl">{game.away.curatedRank.current}&nbsp;</Text>}
-              <Text size="xl">{game.away.team.location}</Text>
+              <Text size="xl" fw={500}>{game.away.team.location}</Text>
             </Flex>
 
           </Flex>
@@ -58,16 +58,16 @@ export default function Game({ game, description }: GameProps) {
       
         <Flex align="center" justify="space-between">
           <Flex gap="xs" align="center">
-            <Image
+            {game.home.team.logo && <Image
                 src={game.home.team.logo}
                 alt={game.home.team.location}
                 width={25}
                 height={25}
                 className="mr-2"
-            />
+            />}
             <Flex gap={0} c={(game.status.type.completed && !game.home.winner ? 'gray.6' : '')}>
               {game.home.curatedRank && <Text size="xl">{game.home.curatedRank.current}&nbsp;</Text>}
-              <Text size="xl">{game.home.team.location}</Text>
+              <Text size="xl" fw={500}>{game.home.team.location}</Text>
             </Flex>
 
           </Flex>
@@ -93,7 +93,7 @@ export default function Game({ game, description }: GameProps) {
         </Flex>
 
         <Flex>
-          <Text size="md">{description ? description : game.description}</Text>
+          <Text size="md" c="dimmed">{description ? description : game.description}</Text>
         </Flex>
       </Stack>
     </Paper>

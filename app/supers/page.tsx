@@ -24,6 +24,7 @@ export default function Supers() {
   }, [games]);
 
   useEffect(() => {
+    console.log('supersGames', supersGames)
     if (supersGames && supersGames?.length > 0) {
       setSupersDates([...new Set(supersGames.map(game => game.date))]);
 
@@ -53,28 +54,34 @@ export default function Supers() {
 
   return (
     <>
-      <Flex>
-        <Button variant="transparent" onClick={() => filterGames('')}>All</Button>
-        {supersDates && supersDates.map(date => {
-          return (
-            <Flex key={date} align="center">
-              <Text>|</Text>
-              <Button variant="transparent" onClick={() => filterGames(date)} className={"cursor-pointer " + (selectedDate == date ? 'underline text-royal-blue' : '')}>{dayjs(date).format('dddd')}</Button>
-            </Flex>
-          )
-        })}
-      </Flex>
+      {supersGames.length ? 
+        <>
+          <Flex>
+            <Button variant="transparent" onClick={() => filterGames('')}>All</Button>
+            {supersDates && supersDates.map(date => {
+              return (
+                <Flex key={date} align="center">
+                  <Text>|</Text>
+                  <Button variant="transparent" onClick={() => filterGames(date)} className={"cursor-pointer " + (selectedDate == date ? 'underline text-royal-blue' : '')}>{dayjs(date).format('dddd')}</Button>
+                </Flex>
+              )
+            })}
+          </Flex>
 
-      {selectedDate &&
-        <Day games={dayGames} />
-      }
+          {selectedDate &&
+            <Day games={dayGames} />
+          }
 
-      {!selectedDate && supersVenues &&
-        <Grid>
-          {supersVenues.map((venue)=> {
-            return <Grid.Col key={venue.id} span={3}><Box venue={venue} games={supersGames} name={venue.address.city}/></Grid.Col>
-          })}
-        </Grid>
+          {!selectedDate && supersVenues &&
+            <Grid>
+              {supersVenues.map((venue)=> {
+                return <Grid.Col key={venue.id} span={3}><Box venue={venue} games={supersGames} name={venue.address.city}/></Grid.Col>
+              })}
+            </Grid>
+          }
+        </>
+        :
+        <Text>No games scheduled yet; please check back after Regionals have completed.</Text>
       }
     </>
   )
