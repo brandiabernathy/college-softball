@@ -1,57 +1,101 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { SingleGame } from '../types';
+import { Box, Flex, Paper, Stack, Text } from '@mantine/core';
+import { Game as GameType } from '../types';
 
-export default function Game(props: SingleGame) {
+type GameProps = {
+  game: GameType;
+  description?: string;
+}
+
+export default function Game({ game, description }: GameProps) {
 
 	return (
-		<div className="h-fit w-full bg-white p-4 rounded text-base">
-            { props.game &&
-                <>
-                    <span className="font-semibold">
-                        {props.game.status.type.description == 'Scheduled' &&
-                           <>{props.game.time ? props.game.time : props.game.status.type.shortDetail}</>
-                        }
-                        {props.game.status.type.description != 'Scheduled' && props.game.status.type.shortDetail}</span>
-                        {!props.game.status.type.completed && <span> - {props.game.broadcast}</span>}
-                    <div className="flex items-center justify-between my-1 relative">
-                        <div className="flex">
-                            { props.game.away.team.logo && <Image
-                                src={props.game.away.team.logo}
-                                alt={props.game.away.team.location}
-                                width={25}
-                                height={25}
-                                className="mr-2"
-                            /> }
-                            { !props.game.away.team.logo && <div className="w-[25px] mr-2"></div>}
-                            {props.game.away.curatedRank && <span className="text-xl mr-2 text-slate-400">{props.game.away.curatedRank.current}</span>}
-                            <span className={"text-xl " + (props.game.status.type.completed && !props.game.away.winner ? 'text-slate-400' : '')}>{props.game.away.team.location}</span>
-                        </div>
-                        {props.game.status.type.description != 'Scheduled' && <span className={"text-xl " + (props.game.status.type.completed && !props.game.away.winner ? 'text-slate-400' : '')}>{props.game.away.score}</span>}
-                        {props.game.away.winner && <div className="border-solid border-r-black border-r-8 border-y-transparent border-y-8 border-l-0 absolute -right-4"></div>}
-                    </div>
-                    <div className="flex items-center justify-between my-1 relative">
-                        <div className="flex">
-                        { props.game.home.team.logo && <Image
-                                src={props.game.home.team.logo}
-                                alt={props.game.home.team.location}
-                                width={25}
-                                height={25}
-                                className="mr-2"
-                            /> }
-                            { !props.game.home.team.logo && <div className="w-[25px] mr-2"></div>}
-                            {props.game.home.curatedRank && <span className="text-xl mr-2 text-slate-400">{props.game.home.curatedRank.current}</span>}
-                            <span className={"text-xl " + (props.game.status.type.completed && !props.game.home.winner ? 'text-slate-400' : '')}>{props.game.home.team.location}</span>
-                        </div>
-                        {props.game.status.type.description != 'Scheduled' && <span className={"text-xl " + (props.game.status.type.completed && !props.game.home.winner ? 'text-slate-400' : '')}>{props.game.home.score}</span>}
-                        {props.game.home.winner && <div className="border-solid border-r-black border-r-8 border-y-transparent border-y-8 border-l-0 absolute -right-4"></div>}
-                    </div>
-                    <div className="text-slate-400">
-                        {props.pathname && <Link href={props.pathname + "/" + props.game.location}>{props.description}</Link>}
-                        {!props.pathname && props.description}
-                    </div>
-                </>
-            }
-		</div>
+    <Paper p="md" w="100%">
+      <Stack gap="xxs">
+        <Text size="md" fw="bold">
+          {game.status.type.description == 'Scheduled' ?
+            <>{game.time ? game.time : game.status.type.shortDetail} - {game.broadcast}</>
+          :
+            <>{game.status.type.shortDetail}</>
+          }
+        </Text>
+
+        <Flex align="center" justify="space-between">
+          <Flex gap="xs" align="center">
+            {game.away.team.logo && <Image
+              src={game.away.team.logo}
+              alt={game.away.team.location}
+              width={25}
+              height={25}
+              className="mr-2"
+            />}
+            <Flex gap={0} c={(game.status.type.completed && !game.away.winner ? 'gray.6' : '')}>
+              {game.away.curatedRank && <Text size="xl">{game.away.curatedRank.current}&nbsp;</Text>}
+              <Text size="xl" fw={500}>{game.away.team.location}</Text>
+            </Flex>
+
+          </Flex>
+          <Flex pos="relative">
+            {game.status.type.description != 'Scheduled' && <Text size="xl">{game.away.score}</Text>}
+            {game.away.winner &&
+              <Box
+                style={{
+                  position: 'absolute',
+                  borderTopColor: 'transparent',
+                  borderBottomColor: 'transparent',
+                  borderRightColor: 'black',
+                  borderStyle: 'solid',
+                  borderRightWidth: '8px',
+                  borderTopWidth: '8px',
+                  borderBottomWidth: '8px',
+                  borderLeftWidth: '0px',
+                  top: '9px',
+                  right: '-16px'
+                }}></Box>
+              }
+          </Flex>
+        </Flex>
+      
+        <Flex align="center" justify="space-between">
+          <Flex gap="xs" align="center">
+            {game.home.team.logo && <Image
+                src={game.home.team.logo}
+                alt={game.home.team.location}
+                width={25}
+                height={25}
+                className="mr-2"
+            />}
+            <Flex gap={0} c={(game.status.type.completed && !game.home.winner ? 'gray.6' : '')}>
+              {game.home.curatedRank && <Text size="xl">{game.home.curatedRank.current}&nbsp;</Text>}
+              <Text size="xl" fw={500}>{game.home.team.location}</Text>
+            </Flex>
+
+          </Flex>
+          <Flex pos="relative">
+            {game.status.type.description != 'Scheduled' && <Text size="xl">{game.home.score}</Text>}
+            {game.home.winner &&
+              <Box
+                style={{
+                  position: 'absolute',
+                  borderTopColor: 'transparent',
+                  borderBottomColor: 'transparent',
+                  borderRightColor: 'black',
+                  borderStyle: 'solid',
+                  borderRightWidth: '8px',
+                  borderTopWidth: '8px',
+                  borderBottomWidth: '8px',
+                  borderLeftWidth: '0px',
+                  top: '9px',
+                  right: '-16px'
+                }}></Box>
+              }
+          </Flex>
+        </Flex>
+
+        <Flex>
+          <Text size="md" c="dimmed">{description ? description : game.description}</Text>
+        </Flex>
+      </Stack>
+    </Paper>
 	)
 }

@@ -1,28 +1,34 @@
-'use client';
-import Game from './GameLine';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Games } from '../types';
+import { Game as GameType, Venue } from '../types';
+import { Anchor, Paper, Text } from '@mantine/core';
+import Game from './GameLine';
 
-export default function VenueBox(props: Games) {
+type VenueBoxProps = {
+	games: GameType[];
+	name: string;
+	venue: Venue;
+}
+
+export default function VenueBox({ games, name, venue }: VenueBoxProps) {
 	const pathname = usePathname();
-
-	let events = props.games
-		.filter((game: any) => game.venue == props.venue)
-		.map((game: any)=> {
-			return <Game key={game.id} game={game}/>
-	});
+	const [venueGames, setVenueGames] = useState<GameType[]>([]);
+	
+	useEffect(() => {
+		setVenueGames(games.filter((game: any) => game.venue.id == venue.id && game.home.team.name !== 'TBD'));
+	}, [games]);
 
 	return (
-		<div className="grid bg-white p-2">
-			<div className="text-xl text-center mb-2">
-				{props.name &&
-					<Link href={pathname + "/" + props.name.toLowerCase().replaceAll(' ', '-')}>
-						<span className="capitalize">{props.name.replace("-", ' ')}</span>
-					</Link>
-				}
-				</div>
-			{events}
-		</div>
+		<Paper withBorder p="sm">
+			{name &&
+				<Anchor component={Link} href={pathname + "/" + venue.id}>
+					<Text tt="uppercase" size="lg" ta="center" fw="bold" c="blue">{name.replace("-", ' ')}</Text>
+				</Anchor>
+			}
+			{venueGames && venueGames.map((game: GameType)=> {
+				return <Game key={game.id} game={game}/>
+			})}
+		</Paper>
 	)
 }

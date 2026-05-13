@@ -1,19 +1,22 @@
-import React from 'react';
 import Game from './Game';
-import { usePathname } from 'next/navigation';
-import { Games } from '../types';
+import { Game as GameType } from '../types';
+import { Grid, Text } from '@mantine/core';
 
-export default function Day(props: Games) {
-	const pathname = usePathname();
+type DayProps = {
+	games: GameType[];
+}
 
-	let events = props.games.map((game: any)=> {
-		return <Game key={game.id} game={game} description={game.description} pathname={pathname}/>
-	});
+export default function Day({ games }: DayProps) {
 
 	return (
-		<div className="grid grid-cols-1 min-[600px]:grid-cols-2 min-[1000px]:grid-cols-3 lg:grid-cols-4 gap-3">
-			{events && events}
-			{events.length == 0 && <p className="text-xl">No games scheduled yet</p>}
-		</div>
+		<Grid mt="lg">
+			{games ?
+				games.map(game => {
+					return <Grid.Col key={game.id} span={3}><Game game={game} /></Grid.Col>
+				})
+			:
+				<Text>No games scheduled yet</Text>
+			}
+		</Grid>
 	)
 }

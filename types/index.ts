@@ -1,4 +1,57 @@
 
+export interface Game {
+    id: number;
+    home: Competitor;
+    away: Competitor;
+    broadcast: string;
+    date: string;
+    time: string;
+    venue: Venue;
+    description: string;
+    season: {
+        slug: string;
+        type: number;
+    }
+    status: {
+        type: {
+            description: string;
+            shortDetail: string;
+            completed: boolean;
+        }
+    }
+}
+
+export interface Competitor {
+    id: number;
+    score: number;
+    winner: boolean;
+    team: Team;
+    curatedRank?: {
+        current: number;
+    }
+}
+
+export interface Team {
+    abbreviation: string;
+    color: string;
+    id: number;
+    location: string;
+    logo: string;
+    shortDisplayName: string;
+}
+
+export interface Venue {
+    id: number;
+    address: {
+        city: string;
+        state: string;
+    }
+}
+
+
+
+// ------ below this line is old
+
 export interface SingleGame {
     pathname?: string,
     description?: string,
@@ -45,11 +98,11 @@ export interface SingleGame {
 }
 
 export interface Games {
-    games: object[],
-    venue?: string,
-    name?: string,
+    games: Game[],
+    venue?: string;
+    name?: string;
 }
 
 export interface Bracket {
-    venue: string,
+    venue: string;
 }
