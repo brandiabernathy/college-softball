@@ -1,0 +1,9 @@
+#!/bin/sh
+echo "Automatically fix lint issues before commit..."
+npx lint-staged
+
+echo "Running lint..."
+npm run lint
+
+echo "Running typecheck..."
+npm run typecheck

@@ -23,7 +23,7 @@ export default function RootLayout({
         <Providers>
 			    <Header />
           <Box bg="gray.1">
-            <Container size={1480} py="xl">
+            <Container size={1480} py="xl" mih="calc(100vh - 410px)">
               {children}
             </Container>
           </Box>

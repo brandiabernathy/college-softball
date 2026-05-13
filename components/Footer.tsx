@@ -1,5 +1,3 @@
-'use client';
-
 import { Flex, Image, Text } from '@mantine/core';
 
 export default function Footer() {

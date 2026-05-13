@@ -1,10 +1,13 @@
 'use client';
+
 import { useState } from 'react';
+import { useAppSelector } from '@/app/store';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { Anchor, Box, Container, Flex, Image, Title } from '@mantine/core';
 
 export default function Header() {
+  const { year } = useAppSelector(state => state.app);
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -19,7 +22,7 @@ export default function Header() {
                   w={70}
               />
             </Anchor>
-            <Title fw={300}>NCAA College Softball Tournament</Title>
+            <Title fw={300}>{year} NCAA College Softball Tournament</Title>
           </Flex>
 
           <Flex component="nav" gap="lg">

@@ -27,20 +27,22 @@ export default function Regionals() {
     if (regionalsGames && regionalsGames?.length > 0) {
       setRegionalsDates([...new Set(regionalsGames.map(game => game.date))]);
 
-      // find all locations
-      let venues = regionalsGames.map((item) => ({
+      let venues = regionalsGames
+      .filter(game => game.home.curatedRank && game.home.curatedRank.current !== null)
+      .sort((a,b) => {
+          if (a.home.curatedRank!.current > b.home.curatedRank!.current) return 1;
+          if (a.home.curatedRank!.current < b.home.curatedRank!.current) return -1;
+          return -1;
+      })
+      .map((item) => ({
         location: item.venue.address.city,
         id: item.venue.id,
         address: {
           city: item.venue.address.city,
           state: item.venue.address.state
         },
-        home_rank: item.home.curatedRank || 99
+        home_rank: item.home.curatedRank || null
       }))
-      // filter to only find unique locations
-      .filter((obj, index, self) => 
-        index === self.findIndex((v) => v.id === obj.id)
-      );
 
       setRegionalVenues(venues);
 
@@ -55,12 +57,18 @@ export default function Regionals() {
   return (
     <>
       <Flex>
-        <Button variant="transparent" onClick={() => filterGames('')}>All</Button>
+        <Button variant="transparent" c={selectedDate === '' ? '' : 'gray.7'} onClick={() => filterGames('')}>All</Button>
         {regionalsDates && regionalsDates.map((date: string) => {
           return (
             <Flex key={date} align="center">
               <Text>|</Text>
-              <Button variant="transparent" onClick={() => filterGames(date)} className={"cursor-pointer " + (selectedDate == date ? 'underline text-royal-blue' : '')}>{dayjs(date).format('dddd')}</Button>
+              <Button
+                variant="transparent"
+                onClick={() => filterGames(date)}
+                c={selectedDate === date ? '' : 'gray.7'}
+              >
+                {dayjs(date).format('dddd')}
+              </Button>
             </Flex>
           )
         })}

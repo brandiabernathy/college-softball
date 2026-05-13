@@ -1,11 +1,9 @@
-'use client';
-
 import { useEffect, useState } from 'react';
-import Game from './GameLine';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Game as GameType, Venue } from '../types';
-import { Text, Paper } from '@mantine/core';
+import { Anchor, Paper, Text } from '@mantine/core';
+import Game from './GameLine';
 
 type VenueBoxProps = {
 	games: GameType[];
@@ -18,15 +16,15 @@ export default function VenueBox({ games, name, venue }: VenueBoxProps) {
 	const [venueGames, setVenueGames] = useState<GameType[]>([]);
 	
 	useEffect(() => {
-		setVenueGames(games.filter((game: any) => game.venue.id == venue.id));
+		setVenueGames(games.filter((game: any) => game.venue.id == venue.id && game.home.team.name !== 'TBD'));
 	}, [games]);
 
 	return (
 		<Paper withBorder p="sm">
 			{name &&
-				// <Link href={pathname + "/" + venue}>
-					<Text tt="uppercase" size="lg" ta="center" fw="bold">{name.replace("-", ' ')}</Text>
-				// </Link>
+				<Anchor component={Link} href={pathname + "/" + venue.id}>
+					<Text tt="uppercase" size="lg" ta="center" fw="bold" c="blue">{name.replace("-", ' ')}</Text>
+				</Anchor>
 			}
 			{venueGames && venueGames.map((game: GameType)=> {
 				return <Game key={game.id} game={game}/>

@@ -1,6 +1,3 @@
-'use client';
-
-import { useEffect } from 'react';
 import Game from './Game';
 import { Game as GameType } from '../types';
 import { Grid, Text } from '@mantine/core';
@@ -11,12 +8,8 @@ type DayProps = {
 
 export default function Day({ games }: DayProps) {
 
-	useEffect(() => {
-		console.log('day', games);
-	}, [games])
-
 	return (
-		<Grid mt="lg" gutter="xl">
+		<Grid mt="lg">
 			{games ?
 				games.map(game => {
 					return <Grid.Col key={game.id} span={3}><Game game={game} /></Grid.Col>
