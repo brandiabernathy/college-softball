@@ -79,7 +79,7 @@ export default function Regionals() {
       }
 
       {!selectedDate && regionalsVenues &&
-        <Grid>
+        <Grid gap="xxs">
           {regionalsVenues.map((venue)=> {
             return <Grid.Col key={venue.id} span={3}><Box venue={venue} games={regionalsGames} name={venue.address.city}/></Grid.Col>
           })}
