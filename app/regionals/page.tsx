@@ -44,7 +44,8 @@ export default function Regionals() {
         home_rank: item.home.curatedRank || null
       }))
 
-      setRegionalVenues(venues);
+      let uniqueVenues = venues.filter((v,i,a)=>a.findIndex(v2=>(v.location === v2.location))===i);
+      setRegionalVenues(uniqueVenues);
 
     }
   },[regionalsGames]);

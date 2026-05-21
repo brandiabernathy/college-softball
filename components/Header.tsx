@@ -22,7 +22,7 @@ export default function Header() {
                   w={70}
               />
             </Anchor>
-            <Title fw={300}>{year} NCAA College Softball Tournament</Title>
+            <Title fw={300}>NCAA College Softball Tournament</Title>
           </Flex>
 
           <Flex component="nav" gap="lg">
